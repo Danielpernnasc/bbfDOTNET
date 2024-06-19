@@ -1,33 +1,57 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "E:\\Users\\DANIEL\\Desktop\\Cursodotnet\\bookstore\\",
+  "WorkspaceRootPath": "E:\\Users\\DANIEL\\Desktop\\Cursodotnet\\bbfDOTNET\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{72D30464-FEAE-42F0-85D5-916D554605C8}|bookstore\\bookstore.csproj|e:\\users\\daniel\\desktop\\cursodotnet\\bookstore\\bookstore\\controllers\\bookscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{72D30464-FEAE-42F0-85D5-916D554605C8}|bookstore\\bookstore.csproj|solutionrelative:bookstore\\controllers\\bookscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{72D30464-FEAE-42F0-85D5-916D554605C8}|bookstore\\bookstore.csproj|e:\\users\\daniel\\desktop\\cursodotnet\\bookstore\\bookstore\\models\\books.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{72D30464-FEAE-42F0-85D5-916D554605C8}|bookstore\\bookstore.csproj|solutionrelative:bookstore\\models\\books.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{72D30464-FEAE-42F0-85D5-916D554605C8}|bookstore\\bookstore.csproj|e:\\users\\daniel\\desktop\\cursodotnet\\bookstore\\bookstore\\models\\categoria.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{72D30464-FEAE-42F0-85D5-916D554605C8}|bookstore\\bookstore.csproj|solutionrelative:bookstore\\models\\categoria.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{72D30464-FEAE-42F0-85D5-916D554605C8}|bookstore\\bookstore.csproj|e:\\users\\daniel\\desktop\\cursodotnet\\bookstore\\bookstore\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "AbsoluteMoniker": "D:0:0:{72D30464-FEAE-42F0-85D5-916D554605C8}|bookstore\\bookstore.csproj|e:\\users\\daniel\\desktop\\cursodotnet\\bbfdotnet\\bookstore\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{72D30464-FEAE-42F0-85D5-916D554605C8}|bookstore\\bookstore.csproj|solutionrelative:bookstore\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{72D30464-FEAE-42F0-85D5-916D554605C8}|bookstore\\bookstore.csproj|e:\\users\\daniel\\desktop\\cursodotnet\\bookstore\\bookstore\\data\\dbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{72D30464-FEAE-42F0-85D5-916D554605C8}|bookstore\\bookstore.csproj|solutionrelative:bookstore\\data\\dbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{72D30464-FEAE-42F0-85D5-916D554605C8}|bookstore\\bookstore.csproj|e:\\users\\daniel\\desktop\\cursodotnet\\bbfdotnet\\bookstore\\startup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{72D30464-FEAE-42F0-85D5-916D554605C8}|bookstore\\bookstore.csproj|solutionrelative:bookstore\\startup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{72D30464-FEAE-42F0-85D5-916D554605C8}|bookstore\\bookstore.csproj|e:\\users\\daniel\\desktop\\cursodotnet\\bookstore\\bookstore\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{72D30464-FEAE-42F0-85D5-916D554605C8}|bookstore\\bookstore.csproj|e:\\users\\daniel\\desktop\\cursodotnet\\bbfdotnet\\bookstore\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{72D30464-FEAE-42F0-85D5-916D554605C8}|bookstore\\bookstore.csproj|solutionrelative:bookstore\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{72D30464-FEAE-42F0-85D5-916D554605C8}|bookstore\\bookstore.csproj|e:\\users\\daniel\\desktop\\cursodotnet\\bookstore\\bookstore\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "AbsoluteMoniker": "D:0:0:{72D30464-FEAE-42F0-85D5-916D554605C8}|bookstore\\bookstore.csproj|e:\\users\\daniel\\desktop\\cursodotnet\\bbfdotnet\\bookstore\\data\\dynamodbservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{72D30464-FEAE-42F0-85D5-916D554605C8}|bookstore\\bookstore.csproj|solutionrelative:bookstore\\data\\dynamodbservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{72D30464-FEAE-42F0-85D5-916D554605C8}|bookstore\\bookstore.csproj|e:\\users\\daniel\\desktop\\cursodotnet\\bbfdotnet\\bookstore\\controllers\\bookscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{72D30464-FEAE-42F0-85D5-916D554605C8}|bookstore\\bookstore.csproj|solutionrelative:bookstore\\controllers\\bookscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{72D30464-FEAE-42F0-85D5-916D554605C8}|bookstore\\bookstore.csproj|e:\\users\\daniel\\desktop\\cursodotnet\\bbfdotnet\\bookstore\\data\\bookservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{72D30464-FEAE-42F0-85D5-916D554605C8}|bookstore\\bookstore.csproj|solutionrelative:bookstore\\data\\bookservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{72D30464-FEAE-42F0-85D5-916D554605C8}|bookstore\\bookstore.csproj|e:\\users\\daniel\\desktop\\cursodotnet\\bbfdotnet\\bookstore\\data\\dbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{72D30464-FEAE-42F0-85D5-916D554605C8}|bookstore\\bookstore.csproj|solutionrelative:bookstore\\data\\dbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{72D30464-FEAE-42F0-85D5-916D554605C8}|bookstore\\bookstore.csproj|e:\\users\\daniel\\desktop\\cursodotnet\\bbfdotnet\\bookstore\\data\\dynamodbconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{72D30464-FEAE-42F0-85D5-916D554605C8}|bookstore\\bookstore.csproj|solutionrelative:bookstore\\data\\dynamodbconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{72D30464-FEAE-42F0-85D5-916D554605C8}|bookstore\\bookstore.csproj|e:\\users\\daniel\\desktop\\cursodotnet\\bbfdotnet\\bookstore\\data\\dynamodbmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{72D30464-FEAE-42F0-85D5-916D554605C8}|bookstore\\bookstore.csproj|solutionrelative:bookstore\\data\\dynamodbmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{72D30464-FEAE-42F0-85D5-916D554605C8}|bookstore\\bookstore.csproj|e:\\users\\daniel\\desktop\\cursodotnet\\bbfdotnet\\bookstore\\models\\categoria.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{72D30464-FEAE-42F0-85D5-916D554605C8}|bookstore\\bookstore.csproj|solutionrelative:bookstore\\models\\categoria.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{72D30464-FEAE-42F0-85D5-916D554605C8}|bookstore\\bookstore.csproj|e:\\users\\daniel\\desktop\\cursodotnet\\bbfdotnet\\bookstore\\models\\books.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{72D30464-FEAE-42F0-85D5-916D554605C8}|bookstore\\bookstore.csproj|solutionrelative:bookstore\\models\\books.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{72D30464-FEAE-42F0-85D5-916D554605C8}|bookstore\\bookstore.csproj|e:\\users\\daniel\\desktop\\cursodotnet\\bbfdotnet\\bookstore\\bookstore.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{72D30464-FEAE-42F0-85D5-916D554605C8}|bookstore\\bookstore.csproj|solutionrelative:bookstore\\bookstore.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{72D30464-FEAE-42F0-85D5-916D554605C8}|bookstore\\bookstore.csproj|e:\\users\\daniel\\desktop\\cursodotnet\\bbfdotnet\\bookstore\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{72D30464-FEAE-42F0-85D5-916D554605C8}|bookstore\\bookstore.csproj|solutionrelative:bookstore\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     }
   ],
@@ -38,7 +62,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 9,
           "Children": [
             {
               "$type": "Bookmark",
@@ -46,91 +70,172 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
+              "Title": "Startup.cs",
+              "DocumentMoniker": "E:\\Users\\DANIEL\\Desktop\\Cursodotnet\\bbfDOTNET\\bookstore\\Startup.cs",
+              "RelativeDocumentMoniker": "bookstore\\Startup.cs",
+              "ToolTip": "E:\\Users\\DANIEL\\Desktop\\Cursodotnet\\bbfDOTNET\\bookstore\\Startup.cs",
+              "RelativeToolTip": "bookstore\\Startup.cs",
+              "ViewState": "AQIAADMAAAAAAAAAAAAAAAgAAAAkAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-19T14:53:37.014Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "BookService.cs",
+              "DocumentMoniker": "E:\\Users\\DANIEL\\Desktop\\Cursodotnet\\bbfDOTNET\\bookstore\\Data\\BookService.cs",
+              "RelativeDocumentMoniker": "bookstore\\Data\\BookService.cs",
+              "ToolTip": "E:\\Users\\DANIEL\\Desktop\\Cursodotnet\\bbfDOTNET\\bookstore\\Data\\BookService.cs",
+              "RelativeToolTip": "bookstore\\Data\\BookService.cs",
+              "ViewState": "AQIAABAAAAAAAAAAAAAYwCIAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-18T21:21:07.434Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "DynamoDBConfig.cs",
+              "DocumentMoniker": "E:\\Users\\DANIEL\\Desktop\\Cursodotnet\\bbfDOTNET\\bookstore\\Data\\DynamoDBConfig.cs",
+              "RelativeDocumentMoniker": "bookstore\\Data\\DynamoDBConfig.cs",
+              "ToolTip": "E:\\Users\\DANIEL\\Desktop\\Cursodotnet\\bbfDOTNET\\bookstore\\Data\\DynamoDBConfig.cs",
+              "RelativeToolTip": "bookstore\\Data\\DynamoDBConfig.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABIAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-18T21:19:18.366Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "bookstore.csproj",
+              "DocumentMoniker": "E:\\Users\\DANIEL\\Desktop\\Cursodotnet\\bbfDOTNET\\bookstore\\bookstore.csproj",
+              "RelativeDocumentMoniker": "bookstore\\bookstore.csproj",
+              "ToolTip": "E:\\Users\\DANIEL\\Desktop\\Cursodotnet\\bbfDOTNET\\bookstore\\bookstore.csproj",
+              "RelativeToolTip": "bookstore\\bookstore.csproj",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAABFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-06-18T19:31:27.607Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "DynamoDBService.cs",
+              "DocumentMoniker": "E:\\Users\\DANIEL\\Desktop\\Cursodotnet\\bbfDOTNET\\bookstore\\Data\\DynamoDBService.cs",
+              "RelativeDocumentMoniker": "bookstore\\Data\\DynamoDBService.cs",
+              "ToolTip": "E:\\Users\\DANIEL\\Desktop\\Cursodotnet\\bbfDOTNET\\bookstore\\Data\\DynamoDBService.cs",
+              "RelativeToolTip": "bookstore\\Data\\DynamoDBService.cs",
+              "ViewState": "AQIAABEAAAAAAAAAAAAYwCMAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-18T18:50:16.114Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "DynamoDBManager.cs",
+              "DocumentMoniker": "E:\\Users\\DANIEL\\Desktop\\Cursodotnet\\bbfDOTNET\\bookstore\\Data\\DynamoDBManager.cs",
+              "RelativeDocumentMoniker": "bookstore\\Data\\DynamoDBManager.cs",
+              "ToolTip": "E:\\Users\\DANIEL\\Desktop\\Cursodotnet\\bbfDOTNET\\bookstore\\Data\\DynamoDBManager.cs",
+              "RelativeToolTip": "bookstore\\Data\\DynamoDBManager.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-18T14:50:49.841Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
               "Title": "Categoria.cs",
-              "DocumentMoniker": "E:\\Users\\DANIEL\\Desktop\\Cursodotnet\\bookstore\\bookstore\\models\\Categoria.cs",
+              "DocumentMoniker": "E:\\Users\\DANIEL\\Desktop\\Cursodotnet\\bbfDOTNET\\bookstore\\models\\Categoria.cs",
               "RelativeDocumentMoniker": "bookstore\\models\\Categoria.cs",
-              "ToolTip": "E:\\Users\\DANIEL\\Desktop\\Cursodotnet\\bookstore\\bookstore\\models\\Categoria.cs",
+              "ToolTip": "E:\\Users\\DANIEL\\Desktop\\Cursodotnet\\bbfDOTNET\\bookstore\\models\\Categoria.cs",
               "RelativeToolTip": "bookstore\\models\\Categoria.cs",
-              "ViewState": "AQIAABIAAAAAAAAAAAAAABgAAAAAAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAAEAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-14T19:13:51.378Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
               "Title": "DbContext.cs",
-              "DocumentMoniker": "E:\\Users\\DANIEL\\Desktop\\Cursodotnet\\bookstore\\bookstore\\Data\\DbContext.cs",
+              "DocumentMoniker": "E:\\Users\\DANIEL\\Desktop\\Cursodotnet\\bbfDOTNET\\bookstore\\Data\\DbContext.cs",
               "RelativeDocumentMoniker": "bookstore\\Data\\DbContext.cs",
-              "ToolTip": "E:\\Users\\DANIEL\\Desktop\\Cursodotnet\\bookstore\\bookstore\\Data\\DbContext.cs",
+              "ToolTip": "E:\\Users\\DANIEL\\Desktop\\Cursodotnet\\bbfDOTNET\\bookstore\\Data\\DbContext.cs",
               "RelativeToolTip": "bookstore\\Data\\DbContext.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-13T14:04:38.531Z"
+              "WhenOpened": "2024-06-13T14:04:38.531Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 0,
               "Title": "appsettings.json",
-              "DocumentMoniker": "E:\\Users\\DANIEL\\Desktop\\Cursodotnet\\bookstore\\bookstore\\appsettings.json",
+              "DocumentMoniker": "E:\\Users\\DANIEL\\Desktop\\Cursodotnet\\bbfDOTNET\\bookstore\\appsettings.json",
               "RelativeDocumentMoniker": "bookstore\\appsettings.json",
-              "ToolTip": "E:\\Users\\DANIEL\\Desktop\\Cursodotnet\\bookstore\\bookstore\\appsettings.json",
+              "ToolTip": "E:\\Users\\DANIEL\\Desktop\\Cursodotnet\\bbfDOTNET\\bookstore\\appsettings.json",
               "RelativeToolTip": "bookstore\\appsettings.json",
-              "ViewState": "AQIAAAIAAAAAAAAAAAAAAAIAAAA/AAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAADAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
               "WhenOpened": "2024-06-13T13:53:00.366Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 4,
               "Title": "BooksController.cs",
-              "DocumentMoniker": "E:\\Users\\DANIEL\\Desktop\\Cursodotnet\\bookstore\\bookstore\\Controllers\\BooksController.cs",
+              "DocumentMoniker": "E:\\Users\\DANIEL\\Desktop\\Cursodotnet\\bbfDOTNET\\bookstore\\Controllers\\BooksController.cs",
               "RelativeDocumentMoniker": "bookstore\\Controllers\\BooksController.cs",
-              "ToolTip": "E:\\Users\\DANIEL\\Desktop\\Cursodotnet\\bookstore\\bookstore\\Controllers\\BooksController.cs",
+              "ToolTip": "E:\\Users\\DANIEL\\Desktop\\Cursodotnet\\bbfDOTNET\\bookstore\\Controllers\\BooksController.cs",
               "RelativeToolTip": "bookstore\\Controllers\\BooksController.cs",
-              "ViewState": "AQIAAFMAAAAAAAAAAAAowFUAAAAJAAAA",
+              "ViewState": "AQIAAKIAAAAAAAAAAAAzwLQAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-13T12:30:39.869Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 10,
               "Title": "books.cs",
-              "DocumentMoniker": "E:\\Users\\DANIEL\\Desktop\\Cursodotnet\\bookstore\\bookstore\\models\\books.cs",
+              "DocumentMoniker": "E:\\Users\\DANIEL\\Desktop\\Cursodotnet\\bbfDOTNET\\bookstore\\models\\books.cs",
               "RelativeDocumentMoniker": "bookstore\\models\\books.cs",
-              "ToolTip": "E:\\Users\\DANIEL\\Desktop\\Cursodotnet\\bookstore\\bookstore\\models\\books.cs",
+              "ToolTip": "E:\\Users\\DANIEL\\Desktop\\Cursodotnet\\bbfDOTNET\\bookstore\\models\\books.cs",
               "RelativeToolTip": "bookstore\\models\\books.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "ViewState": "AQIAACMAAAAAAAAAAAA0wDIAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-13T11:58:52.151Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 2,
               "Title": "Program.cs",
-              "DocumentMoniker": "E:\\Users\\DANIEL\\Desktop\\Cursodotnet\\bookstore\\bookstore\\Program.cs",
+              "DocumentMoniker": "E:\\Users\\DANIEL\\Desktop\\Cursodotnet\\bbfDOTNET\\bookstore\\Program.cs",
               "RelativeDocumentMoniker": "bookstore\\Program.cs",
-              "ToolTip": "E:\\Users\\DANIEL\\Desktop\\Cursodotnet\\bookstore\\bookstore\\Program.cs",
+              "ToolTip": "E:\\Users\\DANIEL\\Desktop\\Cursodotnet\\bbfDOTNET\\bookstore\\Program.cs",
               "RelativeToolTip": "bookstore\\Program.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAwAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABUAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-13T11:49:43.265Z"
+              "WhenOpened": "2024-06-13T11:49:43.265Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 12,
               "Title": "launchSettings.json",
-              "DocumentMoniker": "E:\\Users\\DANIEL\\Desktop\\Cursodotnet\\bookstore\\bookstore\\Properties\\launchSettings.json",
+              "DocumentMoniker": "E:\\Users\\DANIEL\\Desktop\\Cursodotnet\\bbfDOTNET\\bookstore\\Properties\\launchSettings.json",
               "RelativeDocumentMoniker": "bookstore\\Properties\\launchSettings.json",
-              "ToolTip": "E:\\Users\\DANIEL\\Desktop\\Cursodotnet\\bookstore\\bookstore\\Properties\\launchSettings.json",
+              "ToolTip": "E:\\Users\\DANIEL\\Desktop\\Cursodotnet\\bbfDOTNET\\bookstore\\Properties\\launchSettings.json",
               "RelativeToolTip": "bookstore\\Properties\\launchSettings.json",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-06-12T17:56:52.249Z"
+              "WhenOpened": "2024-06-12T17:56:52.249Z",
+              "EditorCaption": ""
             }
           ]
         }

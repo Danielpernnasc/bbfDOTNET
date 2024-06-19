@@ -1,44 +1,50 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Amazon.DynamoDBv2.DataModel;
 
 namespace bookstore.models
 {
-    public class Books
+    [DynamoDBTable("StockBooks")]
+    public class books
     {
-        public int ID { get; set; }
+        [DynamoDBHashKey] // Chave de partição
+        public int BookID { get; set; }
 
-        [Required(ErrorMessage = "O campo Título é obrigatório.")]
-        public string Titulo { get; set; }
-
-        [Required(ErrorMessage = "O campo Autor é obrigatório.")]
+        [DynamoDBProperty]
         public string Autor { get; set; }
 
-        [Required(ErrorMessage = "O campo Editora é obrigatório.")]
-        public string Editora { get; set; }
+        [DynamoDBProperty("Capa")]
+        public BookCover Capa { get; set; }
 
-        public string Sinopse { get; set; }
-
-        [Required(ErrorMessage = "O campo Preço é obrigatório.")]
-        public decimal Preco { get; set; }
-
-        [Required(ErrorMessage = "O campo Categoria é obrigatório.")]
+        [DynamoDBProperty]
         public string Categoria { get; set; }
 
-        // Construtor com parâmetros para inicialização
-        public Books(int id, string titulo, string autor, string editora, decimal preco, string sinopse)
-        {
-            ID = id;
-            Titulo = titulo;
-            Autor = autor;
-            Editora = editora;
-            Preco = preco;
-            Sinopse = sinopse;
-            Categoria = "Geral"; // Definir categoria padrão se necessário
-        }
+        [DynamoDBProperty]
+        public string Editora { get; set; }
 
-        // Construtor sem parâmetros requerido para serialização JSON
-        public Books()
-        {
-            // Inicialize propriedades com valores padrão se necessário
-        }
+        [DynamoDBProperty]
+        public decimal Preco { get; set; }
+
+        [DynamoDBProperty]
+        public int Quantidade { get; set; }
+
+        [DynamoDBProperty]
+        public string Sinopse { get; set; }
+
+        [DynamoDBProperty]
+        public string Titulo { get; set; }
+    }
+
+    public class BookCover
+    {
+        [DynamoDBProperty]
+        public string Base64 { get; set; }
+
+        [DynamoDBProperty]
+        public string NomeArquivo { get; set; }
+
+        [DynamoDBProperty]
+        public long TamanhoArquivo { get; set; }
+
+        [DynamoDBProperty]
+        public string TipoArquivo { get; set; }
     }
 }

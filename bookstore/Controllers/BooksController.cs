@@ -1,120 +1,93 @@
-﻿
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Amazon.DynamoDBv2;
+using Amazon.DynamoDBv2.DataModel;
 using bookstore.Data;
 using bookstore.models;
-using Microsoft.EntityFrameworkCore;
+using System.IO;
+using System.Threading.Tasks;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace bookstore.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BooksController: ControllerBase
+    public class BooksController : ControllerBase
     {
-
         private readonly BookstoreDbContext _context;
+        private readonly DynamoDBService _dynamoDBService;
+        private readonly IDynamoDBContext _dynamoDBContext;
 
-        public BooksController(BookstoreDbContext context)
+        public BooksController(
+            BookstoreDbContext context,
+            IAmazonDynamoDB dynamoDBClient,
+            DynamoDBService dynamoDBService)
         {
             _context = context;
+            _dynamoDBService = dynamoDBService;
+            _dynamoDBContext = new DynamoDBContext(dynamoDBClient);
         }
 
         [HttpGet]
-        //public async Task<ActionResult<IEnumerable<Books>>> GetBook() antigo
-
-        public async Task<ActionResult<Categoria>> GetBook()
+        [ProducesResponseType(typeof(Categoria), 200)]
+        public async Task<ActionResult<Categoria>> GetBooks()
         {
-            var livros = await _context.Books.ToListAsync();
-
-
-            Categoria categorias = new Categoria();
-
-            categorias.LiteraturaEstrangeira = 
-               livros.Where(b => b.Categoria == "Literatura Estrangeira").Select(b =>
-               new LivroDTO
-               {
-                    ID = b.ID,
-                    Titulo = b.Titulo,
-                    Autor = b.Autor,
-                    Editora = b.Editora,
-                    Preco = b.Preco,
-                    Sinopse = b.Sinopse 
-                    }).ToList();
-            categorias.LiteraturaNacional = livros
-               .Where(b => b.Categoria == "Literatura Nacional")
-               .Select(b => new LivroDTO
-               {
-                   ID = b.ID,
-                   Titulo = b.Titulo,
-                   Autor = b.Autor,
-                   Editora = b.Editora,
-                   Preco = b.Preco,
-                   Sinopse = b.Sinopse
-               }).ToList();
-            categorias.Politica = livros.Where(b => b.Categoria == "Politica")
-            .Select(b => new LivroDTO
-            {
-                ID = b.ID,
-                Titulo = b.Titulo,
-                Autor = b.Autor,
-                Editora = b.Editora,
-                Preco = b.Preco,
-                Sinopse = b.Sinopse
-            }).ToList();
-            categorias.Filosofia = livros.Where(b => b.Categoria == "Filosofia")
-            .Select(b => new LivroDTO
-            {
-                ID = b.ID,
-                Titulo = b.Titulo,
-                Autor = b.Autor,
-                Editora = b.Editora,
-                Preco = b.Preco,
-                Sinopse = b.Sinopse
-            }).ToList();
-            categorias.Economia = livros.Where(b => b.Categoria == "Economia")
-            .Select(b => new LivroDTO
-            {
-                ID = b.ID,
-                Titulo = b.Titulo,
-                Autor = b.Autor,
-                Editora = b.Editora,
-                Preco = b.Preco,
-                Sinopse = b.Sinopse
-            }).ToList();
-
-            return categorias;
-
+            var allBooks = await GetAllBooksAsync();
+            Categoria categorias = BuildCategoria(allBooks);
+            return Ok(categorias);
         }
 
         [HttpPost]
-        public async Task<ActionResult<Books>> PostBook([FromBody] Books book)
+        [ProducesResponseType(typeof(books), 201)]
+        [ProducesResponseType(typeof(IDictionary<string, string>), 400)]
+        public async Task<ActionResult<books>> PostBook([FromForm] books book, IFormFile file)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
+            // Obtém o próximo ID
+            int nextBookId = await _dynamoDBService.GetNextBookId();
+            book.BookID = nextBookId;
+
+            // Processa o arquivo de capa
+            if (file != null && file.Length > 0)
+            {
+                using (var memoryStream = new MemoryStream())
+                {
+                    await file.CopyToAsync(memoryStream);
+                    book.Capa = new BookCover
+                    {
+                        Base64 = Convert.ToBase64String(memoryStream.ToArray()),
+                        NomeArquivo = file.FileName,
+                        TamanhoArquivo = file.Length,
+                        TipoArquivo = file.ContentType
+                    };
+                }
+            }
+
             try
             {
-                _context.Books.Add(book);
-                await _context.SaveChangesAsync();
-
-                // Retorna um CreatedAtAction com o ID do livro recém-criado
-                return CreatedAtAction(nameof(GetBookId), new { id = book.ID }, book);
+                await _dynamoDBContext.SaveAsync(book);
+                return CreatedAtAction(nameof(GetBookById), new { id = book.BookID }, book);
             }
             catch (Exception ex)
             {
-                // Em caso de erro durante a inserção, retorna um BadRequest com a mensagem de erro
+                // Log do erro para monitoramento
                 return BadRequest($"Erro ao inserir o livro: {ex.Message}");
             }
         }
 
-
         [HttpGet("{id}")]
-        public async Task<ActionResult> GetBookId(int id)
+        [ProducesResponseType(typeof(books), 200)]
+        [ProducesResponseType(404)]
+        public async Task<ActionResult<books>> GetBookById(int id)
         {
-            var book = await _context.Books.FindAsync(id);
+            var book = await _dynamoDBContext.LoadAsync<books>(id);
 
-            if(book == null)
+            if (book == null)
             {
                 return NotFound();
             }
@@ -123,9 +96,12 @@ namespace bookstore.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<Books>> PutBook(int id, [FromBody] Books book)
+        [ProducesResponseType(204)]
+        [ProducesResponseType(typeof(IDictionary<string, string>), 400)]
+        [ProducesResponseType(404)]
+        public async Task<ActionResult> PutBook(int id, [FromBody] books book)
         {
-            if (id != book.ID)
+            if (id != book.BookID)
             {
                 return BadRequest("ID do livro na URL não corresponde ao ID do livro no corpo da requisição.");
             }
@@ -143,7 +119,7 @@ namespace bookstore.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!BookExist(id))
+                if (!BookExists(id))
                 {
                     return NotFound();
                 }
@@ -156,15 +132,14 @@ namespace bookstore.Controllers
             return NoContent();
         }
 
-
-
         [HttpDelete("{id}")]
-
-        public async Task<ActionResult> Delete(int id)
+        [ProducesResponseType(204)]
+        [ProducesResponseType(404)]
+        public async Task<ActionResult> DeleteBook(int id)
         {
             var book = await _context.Books.FindAsync(id);
 
-            if(book == null)
+            if (book == null)
             {
                 return NotFound();
             }
@@ -175,15 +150,31 @@ namespace bookstore.Controllers
             return NoContent();
         }
 
-        private bool BookExist(int id)
+        private bool BookExists(int id)
         {
-            return _context.Books.Any(e => e.ID == id);
+            return _context.Books.Any(e => e.BookID == id);
         }
 
+        private async Task<List<books>> GetAllBooksAsync()
+        {
+            return await _dynamoDBContext.ScanAsync<books>(new List<ScanCondition>()).GetRemainingAsync();
+        }
 
+        private static Categoria BuildCategoria(List<books> allBooks)
+        {
+            return new Categoria
+            {
+                LiteraturaEstrangeira = GetBooksByCategoria(allBooks, "Literatura Estrangeira"),
+                LiteraturaNacional = GetBooksByCategoria(allBooks, "Literatura Nacional"),
+                Politica = GetBooksByCategoria(allBooks, "Politica"),
+                Filosofia = GetBooksByCategoria(allBooks, "Filosofia"),
+                Economia = GetBooksByCategoria(allBooks, "Economia")
+            };
+        }
 
-
-
-
+        private static List<books> GetBooksByCategoria(List<books> allBooks, string categoria)
+        {
+            return allBooks.Where(b => b.Categoria == categoria).ToList();
+        }
     }
 }

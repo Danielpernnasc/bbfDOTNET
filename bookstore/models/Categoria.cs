@@ -1,24 +1,25 @@
-﻿namespace bookstore.models
+﻿using Amazon.DynamoDBv2.DataModel;
+using bookstore.models;
+
+
+[DynamoDBTable("Categorias")]
+public class Categoria
 {
-    public class Categoria
-    {
-        public List<LivroDTO> LiteraturaEstrangeira { get; set; } = new List<LivroDTO>();
-        public List<LivroDTO> LiteraturaNacional { get; set; } = new List<LivroDTO>();
+    
 
-       public List<LivroDTO> Politica { get; set; } = new List<LivroDTO>();
+    [DynamoDBProperty("LivrosLiteraturaEstrangeira")]
+    public List<books> LiteraturaEstrangeira { get; set; }
 
-       public List<LivroDTO> Filosofia { get; set; } = new List<LivroDTO> ();
+    [DynamoDBProperty("LivrosLiteraturaNacional")]
+    public List<books> LiteraturaNacional { get; set; }
 
-       public List<LivroDTO> Economia { get; set; } = new List<LivroDTO>();
-    }
+    [DynamoDBProperty("LivrosPolitica")]
+    public List<books> Politica { get; set; }
 
-    public class LivroDTO
-    {
-        public int ID { get; set; }
-        public string Titulo { get; set; }
-        public string Autor { get; set; }
-        public string Editora { get; set; }
-        public decimal Preco { get; set; }
-        public string Sinopse { get; set; }
-    }
+    [DynamoDBProperty("LivrosFilosofia")]
+    public List<books> Filosofia { get; set; }
+
+    [DynamoDBProperty("LivrosEconomia")]
+    public List<books> Economia { get; set; }
 }
+

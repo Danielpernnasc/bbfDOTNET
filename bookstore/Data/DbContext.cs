@@ -9,7 +9,7 @@ namespace bookstore.Data
         public BookstoreDbContext(DbContextOptions<BookstoreDbContext> options)
         : base(options) { }
 
-        public DbSet<Books> Books { get; set; }
+        public DbSet<books> Books { get; set; }
 
     }
 }
