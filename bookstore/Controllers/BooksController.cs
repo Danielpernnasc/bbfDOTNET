@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using bookstore.Data;
 using bookstore.models;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace bookstore.Controllers
@@ -18,71 +19,123 @@ namespace bookstore.Controllers
             _context = context;
         }
 
-        [HttpGet]
-        //public async Task<ActionResult<IEnumerable<Books>>> GetBook() antigo
 
+        [HttpGet]
         public async Task<ActionResult<Categoria>> GetBook()
         {
-            var livros = await _context.Books.ToListAsync();
-
-
-            Categoria categorias = new Categoria();
-
-            categorias.LiteraturaEstrangeira = 
-               livros.Where(b => b.Categoria == "Literatura Estrangeira").Select(b =>
-               new LivroDTO
-               {
-                    ID = b.ID,
-                    Titulo = b.Titulo,
-                    Autor = b.Autor,
-                    Editora = b.Editora,
-                    Preco = b.Preco,
-                    Sinopse = b.Sinopse 
-                    }).ToList();
-            categorias.LiteraturaNacional = livros
-               .Where(b => b.Categoria == "Literatura Nacional")
-               .Select(b => new LivroDTO
-               {
-                   ID = b.ID,
-                   Titulo = b.Titulo,
-                   Autor = b.Autor,
-                   Editora = b.Editora,
-                   Preco = b.Preco,
-                   Sinopse = b.Sinopse
-               }).ToList();
-            categorias.Politica = livros.Where(b => b.Categoria == "Politica")
-            .Select(b => new LivroDTO
+            try
             {
-                ID = b.ID,
-                Titulo = b.Titulo,
-                Autor = b.Autor,
-                Editora = b.Editora,
-                Preco = b.Preco,
-                Sinopse = b.Sinopse
-            }).ToList();
-            categorias.Filosofia = livros.Where(b => b.Categoria == "Filosofia")
-            .Select(b => new LivroDTO
-            {
-                ID = b.ID,
-                Titulo = b.Titulo,
-                Autor = b.Autor,
-                Editora = b.Editora,
-                Preco = b.Preco,
-                Sinopse = b.Sinopse
-            }).ToList();
-            categorias.Economia = livros.Where(b => b.Categoria == "Economia")
-            .Select(b => new LivroDTO
-            {
-                ID = b.ID,
-                Titulo = b.Titulo,
-                Autor = b.Autor,
-                Editora = b.Editora,
-                Preco = b.Preco,
-                Sinopse = b.Sinopse
-            }).ToList();
+                var livros = await _context.Books.ToListAsync();
 
-            return categorias;
+                Categoria categorias = new Categoria
+                {
+                    LiteraturaEstrangeira = livros
+                        .Where(b => b.Categoria == "Literatura Estrangeira")
+                        .Select(b => new LivroDTO
+                        {
+                            ID = b.ID,
+                            Titulo = b.Titulo,
+                            Autor = b.Autor,
+                            Editora = b.Editora,
+                            Preco = b.Preco,
+                            Sinopse = b.Sinopse,
+                            Quantidade = b.Quantidade,
+                            Capa = new BookCover
+                            {
+                                Base64 = b.Capa.Base64,
+                                NomeArquivo = b.Capa.NomeArquivo,
+                                TamanhoArquivo = b.Capa.TamanhoArquivo,
+                                TipoArquivo = b.Capa.TipoArquivo
+                            }
+                        }).ToList(),
 
+                    LiteraturaNacional = livros
+                        .Where(b => b.Categoria == "Literatura Nacional")
+                        .Select(b => new LivroDTO
+                        {
+                            ID = b.ID,
+                            Titulo = b.Titulo,
+                            Autor = b.Autor,
+                            Editora = b.Editora,
+                            Preco = b.Preco,
+                            Sinopse = b.Sinopse,
+                            Quantidade = b.Quantidade,
+                            Capa = new BookCover
+                            {
+                                Base64 = b.Capa.Base64,
+                                NomeArquivo = b.Capa.NomeArquivo,
+                                TamanhoArquivo = b.Capa.TamanhoArquivo,
+                                TipoArquivo = b.Capa.TipoArquivo
+                            }
+                        }).ToList(),
+
+                    Politica = livros
+                        .Where(b => b.Categoria == "Politica")
+                        .Select(b => new LivroDTO
+                        {
+                            ID = b.ID,
+                            Titulo = b.Titulo,
+                            Autor = b.Autor,
+                            Editora = b.Editora,
+                            Preco = b.Preco,
+                            Sinopse = b.Sinopse,
+                            Quantidade = b.Quantidade,
+                            Capa = new BookCover
+                            {
+                                Base64 = b.Capa.Base64,
+                                NomeArquivo = b.Capa.NomeArquivo,
+                                TamanhoArquivo = b.Capa.TamanhoArquivo,
+                                TipoArquivo = b.Capa.TipoArquivo
+                            }
+                        }).ToList(),
+
+                    Filosofia = livros
+                        .Where(b => b.Categoria == "Filosofia")
+                        .Select(b => new LivroDTO
+                        {
+                            ID = b.ID,
+                            Titulo = b.Titulo,
+                            Autor = b.Autor,
+                            Editora = b.Editora,
+                            Preco = b.Preco,
+                            Sinopse = b.Sinopse,
+                            Quantidade = b.Quantidade,
+                            Capa = new BookCover
+                            {
+                                Base64 = b.Capa.Base64,
+                                NomeArquivo = b.Capa.NomeArquivo,
+                                TamanhoArquivo = b.Capa.TamanhoArquivo,
+                                TipoArquivo = b.Capa.TipoArquivo
+                            }
+                        }).ToList(),
+
+                    Economia = livros
+                        .Where(b => b.Categoria == "Economia")
+                        .Select(b => new LivroDTO
+                        {
+                            ID = b.ID,
+                            Titulo = b.Titulo,
+                            Autor = b.Autor,
+                            Editora = b.Editora,
+                            Preco = b.Preco,
+                            Sinopse = b.Sinopse,
+                            Quantidade = b.Quantidade,
+                            Capa = new BookCover
+                            {
+                                Base64 = b.Capa.Base64,
+                                NomeArquivo = b.Capa.NomeArquivo,
+                                TamanhoArquivo = b.Capa.TamanhoArquivo,
+                                TipoArquivo = b.Capa.TipoArquivo
+                            }
+                        }).ToList()
+                };
+
+                return Ok(categorias);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Erro interno: {ex.Message}");
+            }
         }
 
         [HttpPost]

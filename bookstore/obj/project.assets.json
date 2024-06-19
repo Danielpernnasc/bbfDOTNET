@@ -2689,11 +2689,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\Users\\DANIEL\\Desktop\\Cursodotnet\\bookstore\\bookstore\\bookstore.csproj",
+      "projectUniqueName": "E:\\Users\\DANIEL\\Desktop\\Cursodotnet\\bbfDOTNET\\bookstore\\bookstore.csproj",
       "projectName": "bookstore",
-      "projectPath": "E:\\Users\\DANIEL\\Desktop\\Cursodotnet\\bookstore\\bookstore\\bookstore.csproj",
+      "projectPath": "E:\\Users\\DANIEL\\Desktop\\Cursodotnet\\bbfDOTNET\\bookstore\\bookstore.csproj",
       "packagesPath": "C:\\Users\\Daniel\\.nuget\\packages\\",
-      "outputPath": "E:\\Users\\DANIEL\\Desktop\\Cursodotnet\\bookstore\\bookstore\\obj\\",
+      "outputPath": "E:\\Users\\DANIEL\\Desktop\\Cursodotnet\\bbfDOTNET\\bookstore\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Daniel\\AppData\\Roaming\\NuGet\\NuGet.Config",

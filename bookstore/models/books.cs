@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Buffers.Text;
+using System.ComponentModel.DataAnnotations;
 
 namespace bookstore.models
 {
@@ -23,8 +24,36 @@ namespace bookstore.models
         [Required(ErrorMessage = "O campo Categoria é obrigatório.")]
         public string Categoria { get; set; }
 
+        public int Quantidade { get; set; }
+
+        [Required(ErrorMessage = "O campo Capa é obrigatório.")]
+        public BookCover Capa { get; set; }
+
+        public class BookCover
+        {
+            [Required(ErrorMessage = "O campo Base64 é obrigatório.")]
+            public string Base64 { get; set; }
+
+            [Required(ErrorMessage = "O campo NomeArquivo é obrigatório.")]
+            public string NomeArquivo { get; set; }
+
+            [Required(ErrorMessage = "O campo TamanhoArquivo é obrigatório.")]
+            public long TamanhoArquivo { get; set; }
+
+            [Required(ErrorMessage = "O campo TipoArquivo é obrigatório.")]
+            public string TipoArquivo { get; set; }
+
+            public BookCover(string base64, string nomeArquivo, long tamanhoArquivo, string tipoArquivo)
+            {
+                Base64 = base64;
+                NomeArquivo = nomeArquivo;
+                TamanhoArquivo = tamanhoArquivo;
+                TipoArquivo = tipoArquivo;
+            }
+        }
+
         // Construtor com parâmetros para inicialização
-        public Books(int id, string titulo, string autor, string editora, decimal preco, string sinopse)
+        public Books(int id, string titulo, string autor, string editora, decimal preco, string sinopse, int quantidade, BookCover capa)
         {
             ID = id;
             Titulo = titulo;
@@ -32,7 +61,9 @@ namespace bookstore.models
             Editora = editora;
             Preco = preco;
             Sinopse = sinopse;
+            Quantidade = quantidade;
             Categoria = "Geral"; // Definir categoria padrão se necessário
+            Capa = capa; // Inicializa o objeto BookCover diretamente
         }
 
         // Construtor sem parâmetros requerido para serialização JSON
