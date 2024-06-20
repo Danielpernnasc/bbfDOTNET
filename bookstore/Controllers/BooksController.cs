@@ -28,61 +28,37 @@ namespace bookstore.Controllers
 
             Categoria categorias = new Categoria();
 
-            categorias.LiteraturaEstrangeira = 
-               livros.Where(b => b.Categoria == "Literatura Estrangeira").Select(b =>
-               new LivroDTO
-               {
+            categorias.LiteraturaEstrangeira = GetLivrosPorCategoria(livros, "Literatura Estrangeira");
+            categorias.LiteraturaNacional = GetLivrosPorCategoria(livros, "Literatura Nacional");
+            categorias.LiteraturaInfatoJuv = GetLivrosPorCategoria(livros, "Literatura Infato-Juvenil");
+            categorias.Infantil = GetLivrosPorCategoria(livros, "Infantil");
+            categorias.Religioso = GetLivrosPorCategoria(livros, "Religioso");
+            categorias.Politica = GetLivrosPorCategoria(livros, "Politica");
+            categorias.Filosofia = GetLivrosPorCategoria(livros, "Filosofia");
+            categorias.Economia = GetLivrosPorCategoria(livros, "Economia");
+
+            return categorias;
+
+        }
+
+        private List<LivroDTO> GetLivrosPorCategoria(List<Books> livros, string categoria)
+        {
+            return livros
+                .Where(b => b.Categoria == categoria)
+                .Select(b => new LivroDTO
+                {
                     ID = b.ID,
                     Titulo = b.Titulo,
                     Autor = b.Autor,
                     Editora = b.Editora,
                     Preco = b.Preco,
-                    Sinopse = b.Sinopse 
-                    }).ToList();
-            categorias.LiteraturaNacional = livros
-               .Where(b => b.Categoria == "Literatura Nacional")
-               .Select(b => new LivroDTO
-               {
-                   ID = b.ID,
-                   Titulo = b.Titulo,
-                   Autor = b.Autor,
-                   Editora = b.Editora,
-                   Preco = b.Preco,
-                   Sinopse = b.Sinopse
-               }).ToList();
-            categorias.Politica = livros.Where(b => b.Categoria == "Politica")
-            .Select(b => new LivroDTO
-            {
-                ID = b.ID,
-                Titulo = b.Titulo,
-                Autor = b.Autor,
-                Editora = b.Editora,
-                Preco = b.Preco,
-                Sinopse = b.Sinopse
-            }).ToList();
-            categorias.Filosofia = livros.Where(b => b.Categoria == "Filosofia")
-            .Select(b => new LivroDTO
-            {
-                ID = b.ID,
-                Titulo = b.Titulo,
-                Autor = b.Autor,
-                Editora = b.Editora,
-                Preco = b.Preco,
-                Sinopse = b.Sinopse
-            }).ToList();
-            categorias.Economia = livros.Where(b => b.Categoria == "Economia")
-            .Select(b => new LivroDTO
-            {
-                ID = b.ID,
-                Titulo = b.Titulo,
-                Autor = b.Autor,
-                Editora = b.Editora,
-                Preco = b.Preco,
-                Sinopse = b.Sinopse
-            }).ToList();
-
-            return categorias;
-
+                    Sinopse = b.Sinopse,
+                    ImagemNome = b.ImagemNome,
+                    ImagemTipo = b.ImagemTipo,
+                    ImagemTamanho = b.ImagemTamanho,
+                    Base64 = b.Base64,
+                    Quantidade = b.Quantidade
+                }).ToList();
         }
 
         [HttpPost]
