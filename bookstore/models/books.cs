@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 namespace bookstore.models
 {
@@ -20,17 +21,16 @@ namespace bookstore.models
         [Required(ErrorMessage = "O campo Preço é obrigatório.")]
         public decimal Preco { get; set; }
 
-        public string ImagemNome { get; set; }  
-        public string ImagemTipo { get; set; }  
-        public decimal ImagemTamanho { get; set; } 
-        public string Base64 { get; set; }
-        public int Quantidade { get; set; }
-
-        [Required(ErrorMessage = "O campo Categoria é obrigatório.")]
+        [Required(ErrorMessage = "O campo Categoria é obrigatória.")]
         public string Categoria { get; set; }
 
+        public int Quantidade { get; set; }
+
+        // Propriedade de navegação própria para CoverBook
+        public CoverBook Capa { get; set; }
+
         // Construtor com parâmetros para inicialização
-        public Books(int id, string titulo, string autor, string editora, decimal preco, string sinopse, string imagemNome, string imagemTipo, decimal imagemTamanho, string base64, int quantidade, string categoria)
+        public Books(int id, string titulo, string autor, string editora, decimal preco, string sinopse, CoverBook capa, int quantidade, string categoria)
         {
             ID = id;
             Titulo = titulo;
@@ -38,10 +38,7 @@ namespace bookstore.models
             Editora = editora;
             Preco = preco;
             Sinopse = sinopse;
-            ImagemNome = imagemNome;
-            ImagemTipo = imagemTipo;
-            ImagemTamanho = imagemTamanho;
-            Base64 = base64;
+            Capa = capa;
             Quantidade = quantidade;
             Categoria = categoria;
         }
@@ -52,4 +49,30 @@ namespace bookstore.models
             // Inicialize propriedades com valores padrão se necessário
         }
     }
+
+    public class CoverBook
+    {
+        public string ImagemNome { get; set; }
+        public string ImagemTipo { get; set; }
+        public decimal ImagemTamanho { get; set; }
+        public string Base64 { get; set; }
+
+        // Construtor com parâmetros para inicialização
+        public CoverBook(string imagemNome, string imagemTipo, decimal imagemTamanho, string base64)
+        {
+            ImagemNome = imagemNome;
+            ImagemTipo = imagemTipo;
+            ImagemTamanho = imagemTamanho;
+            Base64 = base64;
+        }
+
+        // Construtor sem parâmetros requerido para serialização JSON
+        public CoverBook()
+        {
+            // Inicialize propriedades com valores padrão se necessário
+        }
+    }
+
+   
 }
+    
