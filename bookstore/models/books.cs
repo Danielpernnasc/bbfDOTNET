@@ -51,7 +51,10 @@ namespace bookstore.models
     }
 
     public class CoverBook
+
+
     {
+        private static readonly string[] AllowedImageTypes = { "image/jpg", "image/jpeg", "image/png", "image/tiff", "image/svg+xml" };
         public string ImagemNome { get; set; }
         public string ImagemTipo { get; set; }
         public decimal ImagemTamanho { get; set; }
@@ -60,6 +63,10 @@ namespace bookstore.models
         // Construtor com parâmetros para inicialização
         public CoverBook(string imagemNome, string imagemTipo, decimal imagemTamanho, string base64)
         {
+            if(Array.IndexOf(AllowedImageTypes, imagemTipo.ToLower()) == -1)
+            {
+                throw new ArgumentException("Tipo de imagem não permitido. Permitido somente: JPG, JPEG, PNG, TIFF, SVG");
+            }
             ImagemNome = imagemNome;
             ImagemTipo = imagemTipo;
             ImagemTamanho = imagemTamanho;
