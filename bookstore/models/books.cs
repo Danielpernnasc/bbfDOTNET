@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace bookstore.models
 {
@@ -26,10 +25,8 @@ namespace bookstore.models
 
         public int Quantidade { get; set; }
 
-        // Propriedade de navegação própria para CoverBook
         public CoverBook Capa { get; set; }
 
-        // Construtor com parâmetros para inicialização
         public Books(int id, string titulo, string autor, string editora, decimal preco, string sinopse, CoverBook capa, int quantidade, string categoria)
         {
             ID = id;
@@ -43,16 +40,12 @@ namespace bookstore.models
             Categoria = categoria;
         }
 
-        // Construtor sem parâmetros requerido para serialização JSON
         public Books()
         {
-            // Inicialize propriedades com valores padrão se necessário
         }
     }
 
     public class CoverBook
-
-
     {
         private static readonly string[] AllowedImageTypes = { "image/jpg", "image/jpeg", "image/png", "image/tiff", "image/svg+xml" };
         public string ImagemNome { get; set; }
@@ -60,10 +53,9 @@ namespace bookstore.models
         public decimal ImagemTamanho { get; set; }
         public string Base64 { get; set; }
 
-        // Construtor com parâmetros para inicialização
         public CoverBook(string imagemNome, string imagemTipo, decimal imagemTamanho, string base64)
         {
-            if(Array.IndexOf(AllowedImageTypes, imagemTipo.ToLower()) == -1)
+            if (Array.IndexOf(AllowedImageTypes, imagemTipo.ToLower()) == -1)
             {
                 throw new ArgumentException("Tipo de imagem não permitido. Permitido somente: JPG, JPEG, PNG, TIFF, SVG");
             }
@@ -73,13 +65,8 @@ namespace bookstore.models
             Base64 = base64;
         }
 
-        // Construtor sem parâmetros requerido para serialização JSON
         public CoverBook()
         {
-            // Inicialize propriedades com valores padrão se necessário
         }
     }
-
-   
 }
-    
