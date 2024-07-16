@@ -25,13 +25,9 @@
         public string Editora { get; set; }
         public decimal Preco { get; set; }
         public string Sinopse { get; set; }
-<<<<<<< HEAD
-        public CoverBook Capa { get; set; }
-=======
 
         public CoverBook Capa { get; set; }
 
->>>>>>> a84e7b30727f784cac4959528ad35dc87342afda
         public int Quantidade { get; set; }
     }
 }
