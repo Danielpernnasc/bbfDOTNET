@@ -32,7 +32,14 @@ namespace bookstore.Controllers
                 Religioso = GetLivrosPorCategoria(livros, "Religioso"),
                 Politica = GetLivrosPorCategoria(livros, "Politica"),
                 Filosofia = GetLivrosPorCategoria(livros, "Filosofia"),
-                Economia = GetLivrosPorCategoria(livros, "Economia")
+                Historia = GetLivrosPorCategoria(livros, "Historia"),
+                Economia = GetLivrosPorCategoria(livros, "Economia"),
+                Negocios = GetLivrosPorCategoria(livros, "Negocios"),
+                AutoAjuda = GetLivrosPorCategoria(livros, "AutoAjuda"),
+                Tecnologia = GetLivrosPorCategoria(livros, "Tecnologia"),
+                DireitosCivis = GetLivrosPorCategoria(livros, "DireitosCivis"),
+                Gastronomia =  GetLivrosPorCategoria(livros, "Gastronomia"),
+                Arte = GetLivrosPorCategoria(livros, "Arte")
             };
 
             return categorias;
