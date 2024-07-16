@@ -44,19 +44,22 @@ namespace bookstore.Controllers
         private List<LivroDTO> GetLivrosPorCategoria(List<Books> livros, string categoria)
         {
             return livros
-                .Where(b => b.Categoria == categoria)
-                .Select(b => new LivroDTO
-                {
+                 .Where(b => b.Categoria.Equals(categoria, StringComparison.OrdinalIgnoreCase))
+                  .Select(b => new LivroDTO
+                  {
                     ID = b.ID,
                     Titulo = b.Titulo,
                     Autor = b.Autor,
                     Editora = b.Editora,
                     Preco = b.Preco,
                     Sinopse = b.Sinopse,
-                    ImagemNome = b.ImagemNome,
-                    ImagemTipo = b.ImagemTipo,
-                    ImagemTamanho = b.ImagemTamanho,
-                    Base64 = b.Base64,
+                    Capa = new CoverBook
+                    {
+                        ImagemNome = b.Capa.ImagemNome,
+                        ImagemTipo = b.Capa.ImagemTipo,
+                        ImagemTamanho = b.Capa.ImagemTamanho,
+                        Base64 = b.Capa.Base64
+                    },
                     Quantidade = b.Quantidade
                 }).ToList();
         }
