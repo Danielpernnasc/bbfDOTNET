@@ -52,7 +52,6 @@ namespace bookstore.Controllers
                     Editora = b.Editora,
                     Preco = b.Preco,
                     Sinopse = b.Sinopse,
-<<<<<<< HEAD
                     Capa = new CoverBook
                     {
                         ImagemNome = b.Capa.ImagemNome,
@@ -60,9 +59,6 @@ namespace bookstore.Controllers
                         ImagemTamanho = b.Capa.ImagemTamanho,
                         Base64 = b.Capa.Base64
                     },
-=======
-                    Capa = b.Capa,
->>>>>>> a84e7b30727f784cac4959528ad35dc87342afda
                     Quantidade = b.Quantidade
                 }).ToList();
         }
