@@ -1,6 +1,5 @@
 ﻿
 using Microsoft.AspNetCore.Mvc;
-using bookstore.Data;
 using bookstore.models;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,9 +10,9 @@ namespace bookstore.Controllers
     public class BooksController: ControllerBase
     {
 
-        private readonly BookstoreDbContext _context;
+        private readonly BookStoreContext _context;
 
-        public BooksController(BookstoreDbContext context)
+        public BooksController(BookStoreContext context)
         {
             _context = context;
         }
@@ -53,6 +52,7 @@ namespace bookstore.Controllers
                     Editora = b.Editora,
                     Preco = b.Preco,
                     Sinopse = b.Sinopse,
+<<<<<<< HEAD
                     Capa = new CoverBook
                     {
                         ImagemNome = b.Capa.ImagemNome,
@@ -60,6 +60,9 @@ namespace bookstore.Controllers
                         ImagemTamanho = b.Capa.ImagemTamanho,
                         Base64 = b.Capa.Base64
                     },
+=======
+                    Capa = b.Capa,
+>>>>>>> a84e7b30727f784cac4959528ad35dc87342afda
                     Quantidade = b.Quantidade
                 }).ToList();
         }

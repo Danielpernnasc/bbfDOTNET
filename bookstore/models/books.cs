@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 namespace bookstore.models
 {
@@ -22,10 +23,18 @@ namespace bookstore.models
 
         [Required(ErrorMessage = "O campo Categoria é obrigatória.")]
         public string Categoria { get; set; }
+<<<<<<< HEAD
         public int Quantidade { get; set; }
 
         public CoverBook Capa { get; set; }
 
+=======
+>>>>>>> a84e7b30727f784cac4959528ad35dc87342afda
+
+        public int Quantidade { get; set; }
+
+        // Propriedade de navegação própria para CoverBook
+        public CoverBook Capa { get; set; }
 
         // Construtor com parâmetros para inicialização
         public Books(int id, string titulo, string autor, string editora, decimal preco, string sinopse, CoverBook capa, int quantidade, string categoria)
@@ -48,15 +57,21 @@ namespace bookstore.models
         }
     }
 
+<<<<<<< HEAD
     public class CoverBook 
     {
 
         private static readonly string[] AllowedImageTypes = { "image/jpg", "image/jpeg", "image/png", "image/tiff", "image/svg+xml" };
+=======
+    public class CoverBook
+    {
+>>>>>>> a84e7b30727f784cac4959528ad35dc87342afda
         public string ImagemNome { get; set; }
         public string ImagemTipo { get; set; }
         public decimal ImagemTamanho { get; set; }
         public string Base64 { get; set; }
 
+<<<<<<< HEAD
         public CoverBook(string imagemNome, string imagemTipo, decimal imagemTamanho, string base64)
         {
             if(Array.IndexOf(AllowedImageTypes, imagemTipo.ToLower()) == -1)
@@ -64,14 +79,32 @@ namespace bookstore.models
                 throw new ArgumentException("Tipo de imagem não permitido. Permitido somente: JPG, JPEG, PNG, TIFF, SVG");
                     
             }
+=======
+        // Construtor com parâmetros para inicialização
+        public CoverBook(string imagemNome, string imagemTipo, decimal imagemTamanho, string base64)
+        {
+>>>>>>> a84e7b30727f784cac4959528ad35dc87342afda
             ImagemNome = imagemNome;
             ImagemTipo = imagemTipo;
             ImagemTamanho = imagemTamanho;
             Base64 = base64;
         }
+<<<<<<< HEAD
         public CoverBook()
         {
 
         }
     }
+=======
+
+        // Construtor sem parâmetros requerido para serialização JSON
+        public CoverBook()
+        {
+            // Inicialize propriedades com valores padrão se necessário
+        }
+    }
+
+   
+>>>>>>> a84e7b30727f784cac4959528ad35dc87342afda
 }
+    
