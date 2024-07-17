@@ -242,3 +242,4 @@ E:\Users\DANIEL\Desktop\Cursodotnet\bbfDOTNET\bookstore\obj\Debug\net8.0\refint\
 E:\Users\DANIEL\Desktop\Cursodotnet\bbfDOTNET\bookstore\obj\Debug\net8.0\bookstore.pdb
 E:\Users\DANIEL\Desktop\Cursodotnet\bbfDOTNET\bookstore\obj\Debug\net8.0\bookstore.genruntimeconfig.cache
 E:\Users\DANIEL\Desktop\Cursodotnet\bbfDOTNET\bookstore\obj\Debug\net8.0\ref\bookstore.dll
+E:\Users\DANIEL\Desktop\Cursodotnet\bbfDOTNET\bookstore\bin\Debug\net8.0\appsettings.Homolog.json
