@@ -11,10 +11,20 @@ public class BookStoreContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-       //Exemplo para MySQL
-       optionsBuilder.UseMySql("Server=bookstore.cve68ca8cubo.us-east-1.rds.amazonaws.com;port=3306;database=Bookstore;user=dpernasc;password=Dce81125;", 
-        new MySqlServerVersion(new Version(8, 0, 21)));
-
+        if (!optionsBuilder.IsConfigured)
+        {
+            var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+            if (env == "Homolog")
+            {
+                optionsBuilder.UseMySql("Server=bookstore.cve68ca8cubo.us-east-1.rds.amazonaws.com;port=3306;database=Bookstore;user=dpernasc;password=Dce81125;",
+                    new MySqlServerVersion(new Version(8, 0, 21)));
+            }
+            else if (env == "Development")
+            {
+                optionsBuilder.UseMySql("Server=localhost;port=3306;database=bookstore;user=dnasc;password=81125;",
+                    new MySqlServerVersion(new Version(8, 0, 21)));
+            }
+        }
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

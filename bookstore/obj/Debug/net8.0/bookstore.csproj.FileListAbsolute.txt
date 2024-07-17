@@ -104,6 +104,7 @@ E:\Users\DANIEL\Desktop\Cursodotnet\bookstore\bookstore\obj\Debug\net8.0\booksto
 E:\Users\DANIEL\Desktop\Cursodotnet\bookstore\bookstore\obj\Debug\net8.0\bookstore.genruntimeconfig.cache
 E:\Users\DANIEL\Desktop\Cursodotnet\bookstore\bookstore\obj\Debug\net8.0\ref\bookstore.dll
 E:\Users\DANIEL\Desktop\Cursodotnet\bbfDOTNET\bookstore\bin\Debug\net8.0\appsettings.Development.json
+E:\Users\DANIEL\Desktop\Cursodotnet\bbfDOTNET\bookstore\bin\Debug\net8.0\appsettings.Homolog.json
 E:\Users\DANIEL\Desktop\Cursodotnet\bbfDOTNET\bookstore\bin\Debug\net8.0\appsettings.json
 E:\Users\DANIEL\Desktop\Cursodotnet\bbfDOTNET\bookstore\bin\Debug\net8.0\bookstore.exe
 E:\Users\DANIEL\Desktop\Cursodotnet\bbfDOTNET\bookstore\bin\Debug\net8.0\bookstore.deps.json
@@ -242,4 +243,3 @@ E:\Users\DANIEL\Desktop\Cursodotnet\bbfDOTNET\bookstore\obj\Debug\net8.0\refint\
 E:\Users\DANIEL\Desktop\Cursodotnet\bbfDOTNET\bookstore\obj\Debug\net8.0\bookstore.pdb
 E:\Users\DANIEL\Desktop\Cursodotnet\bbfDOTNET\bookstore\obj\Debug\net8.0\bookstore.genruntimeconfig.cache
 E:\Users\DANIEL\Desktop\Cursodotnet\bbfDOTNET\bookstore\obj\Debug\net8.0\ref\bookstore.dll
-E:\Users\DANIEL\Desktop\Cursodotnet\bbfDOTNET\bookstore\bin\Debug\net8.0\appsettings.Homolog.json

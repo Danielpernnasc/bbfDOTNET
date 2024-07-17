@@ -37,12 +37,22 @@ namespace bookstore
         // Configuração da pipeline de requisição HTTP
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            // Verifica se está em ambiente de desenvolvimento
+            Console.WriteLine($"Environment: {env.EnvironmentName}");
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
 
-                // Habilita o middleware do Swagger
+                app.UseSwagger();
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "My Bookstore API V1");
+                });
+            }
+            else if (env.IsEnvironment("Homolog"))
+            {
+                app.UseDeveloperExceptionPage();
+
                 app.UseSwagger();
                 app.UseSwaggerUI(c =>
                 {
@@ -64,5 +74,6 @@ namespace bookstore
                 endpoints.MapControllers();
             });
         }
+
     }
 }
