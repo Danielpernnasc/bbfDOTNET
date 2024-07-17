@@ -27,9 +27,7 @@
         public string Editora { get; set; }
         public decimal Preco { get; set; }
         public string Sinopse { get; set; }
-
         public CoverBook Capa { get; set; }
-
         public int Quantidade { get; set; }
     }
 }
