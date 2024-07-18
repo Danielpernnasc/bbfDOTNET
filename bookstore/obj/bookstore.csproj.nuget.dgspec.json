@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Users\\DANIEL\\Desktop\\Cursodotnet\\bbfDOTNET\\bookstore\\bookstore.csproj": {}
+    "C:\\Users\\Daniel\\Desktop\\curso_daniel\\Cursodotnet\\bbfDOTNET\\bookstore\\bookstore.csproj": {}
   },
   "projects": {
-    "E:\\Users\\DANIEL\\Desktop\\Cursodotnet\\bbfDOTNET\\bookstore\\bookstore.csproj": {
+    "C:\\Users\\Daniel\\Desktop\\curso_daniel\\Cursodotnet\\bbfDOTNET\\bookstore\\bookstore.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Users\\DANIEL\\Desktop\\Cursodotnet\\bbfDOTNET\\bookstore\\bookstore.csproj",
+        "projectUniqueName": "C:\\Users\\Daniel\\Desktop\\curso_daniel\\Cursodotnet\\bbfDOTNET\\bookstore\\bookstore.csproj",
         "projectName": "bookstore",
-        "projectPath": "E:\\Users\\DANIEL\\Desktop\\Cursodotnet\\bbfDOTNET\\bookstore\\bookstore.csproj",
+        "projectPath": "C:\\Users\\Daniel\\Desktop\\curso_daniel\\Cursodotnet\\bbfDOTNET\\bookstore\\bookstore.csproj",
         "packagesPath": "C:\\Users\\Daniel\\.nuget\\packages\\",
-        "outputPath": "E:\\Users\\DANIEL\\Desktop\\Cursodotnet\\bbfDOTNET\\bookstore\\obj\\",
+        "outputPath": "C:\\Users\\Daniel\\Desktop\\curso_daniel\\Cursodotnet\\bbfDOTNET\\bookstore\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Daniel\\AppData\\Roaming\\NuGet\\NuGet.Config",
