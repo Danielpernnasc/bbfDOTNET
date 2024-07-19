@@ -11,12 +11,10 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+        uses: actions/checkout@v3  # Atualizado para a versão v3
 
       - name: Set up Node.js (se necessário)
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3  # Atualizado para a versão v3
         with:
           node-version: '16'
 
@@ -25,7 +23,7 @@ jobs:
         working-directory: bookstore  # Ajuste para o diretório onde está sua aplicação
 
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v2
+        uses: aws-actions/configure-aws-credentials@v2  # Certifique-se de usar v2
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
