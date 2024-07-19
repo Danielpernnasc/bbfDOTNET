@@ -20,6 +20,7 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+        working-directory: bookstore  # Ajuste para o diretório onde está sua aplicação
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -36,7 +37,14 @@ jobs:
           # Instalar Elastic Beanstalk CLI
           pip install awsebcli
 
-          # Inicializar EB CLI
-          eb init -p python-3.7 meu-app  # substitua 'meu-app' pelo nome do seu aplicativo
-          eb create meu-ambiente        # substitua 'meu-ambiente' pelo nome do seu ambiente
+          # Navegar para o diretório onde está a aplicação
+          cd bookstore
+
+          # Inicializar EB CLI com o nome do aplicativo no Elastic Beanstalk
+          eb init -p python-3.7 bbfDOTNET  # substitua 'bbfDOTNET' pelo nome do seu aplicativo no Elastic Beanstalk
+
+          # Criar o ambiente no Elastic Beanstalk, se ainda não estiver criado
+          eb create meu-ambiente  # substitua 'meu-ambiente' pelo nome do seu ambiente no Elastic Beanstalk
+
+          # Deploy para o Elastic Beanstalk
           eb deploy
