@@ -11,19 +11,27 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3  # Atualizado para a versão mais recente
+        uses: actions/checkout@v3
 
-      - name: Set up Node.js (se necessário)
-        uses: actions/setup-node@v3  # Atualizado para a versão mais recente
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
         with:
-          node-version: '20'  # Atualizado para a versão mais recente
+          dotnet-version: '7.x'  # Defina a versão do .NET que você está usando
 
-      - name: Install dependencies
-        run: npm install
-        working-directory: bookstore  # Ajuste para o diretório onde está sua aplicação
+      - name: Restore dependencies
+        run: dotnet restore
+        working-directory: bookstore  # Ajuste para o diretório onde está sua aplicação .NET
+
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+        working-directory: bookstore  # Ajuste para o diretório onde está sua aplicação .NET
+
+      - name: Publish
+        run: dotnet publish --configuration Release --output ./publish
+        working-directory: bookstore  # Ajuste para o diretório onde está sua aplicação .NET
 
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v2  # Certifique-se de usar v2
+        uses: aws-actions/configure-aws-credentials@v2
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -34,22 +42,22 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         run: |
-          # Instalar Elastic Beanstalk CLI
+          echo "Instalando Elastic Beanstalk CLI"
           pip install awsebcli
-
-          # Navegar para o diretório onde está a aplicação
-          cd bookstore
-
-          # Inicializar EB CLI com o nome do aplicativo no Elastic Beanstalk
-          eb init -p python-3.7 bbfDOTNET  # substitua 'bbfDOTNET' pelo nome do seu aplicativo no Elastic Beanstalk
-
-          # Verificar se o ambiente já existe antes de tentar criar
+          
+          echo "Mudando para o diretório bookstore/publish"
+          cd bookstore/publish
+          
+          echo "Inicializando EB CLI"
+          eb init -p python-3.7 bbfDOTNET --region us-east-1  # Ajuste conforme necessário
+          
+          echo "Verificando se o ambiente existe"
           if eb status meu-ambiente; then
             echo "Ambiente já existe"
           else
-            # Criar o ambiente no Elastic Beanstalk, se ainda não estiver criado
-            eb create meu-ambiente  # substitua 'meu-ambiente' pelo nome do seu ambiente no Elastic Beanstalk
+            echo "Criando o ambiente"
+            eb create meu-ambiente --region us-east-1  # Certifique-se de que o nome do ambiente e a região estejam corretos
           fi
-
-          # Deploy para o Elastic Beanstalk
+          
+          echo "Realizando o deploy"
           eb deploy
