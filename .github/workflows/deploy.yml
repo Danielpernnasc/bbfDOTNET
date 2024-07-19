@@ -35,7 +35,7 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1  # substitua pela sua região
+          aws-region: us-east-1  # Substitua pela sua região
 
       - name: Deploy to Elastic Beanstalk
         env:
@@ -49,7 +49,7 @@ jobs:
           cd bookstore/publish
           
           echo "Inicializando EB CLI"
-          eb init -p python-3.7 bbfDOTNET --region us-east-1  # Ajuste conforme necessário
+          eb init -p "netcore" bbfDOTNET --region us-east-1  # Ajuste conforme necessário
           
           echo "Verificando se o ambiente existe"
           if eb status meu-ambiente; then
