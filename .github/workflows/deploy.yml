@@ -11,12 +11,12 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3  # Atualizado para a versão v3
+        uses: actions/checkout@v3  # Atualizado para a versão mais recente
 
       - name: Set up Node.js (se necessário)
-        uses: actions/setup-node@v3  # Atualizado para a versão v3
+        uses: actions/setup-node@v3  # Atualizado para a versão mais recente
         with:
-          node-version: '16'
+          node-version: '20'  # Atualizado para a versão mais recente
 
       - name: Install dependencies
         run: npm install
@@ -43,8 +43,13 @@ jobs:
           # Inicializar EB CLI com o nome do aplicativo no Elastic Beanstalk
           eb init -p python-3.7 bbfDOTNET  # substitua 'bbfDOTNET' pelo nome do seu aplicativo no Elastic Beanstalk
 
-          # Criar o ambiente no Elastic Beanstalk, se ainda não estiver criado
-          eb create meu-ambiente  # substitua 'meu-ambiente' pelo nome do seu ambiente no Elastic Beanstalk
+          # Verificar se o ambiente já existe antes de tentar criar
+          if eb status meu-ambiente; then
+            echo "Ambiente já existe"
+          else
+            # Criar o ambiente no Elastic Beanstalk, se ainda não estiver criado
+            eb create meu-ambiente  # substitua 'meu-ambiente' pelo nome do seu ambiente no Elastic Beanstalk
+          fi
 
           # Deploy para o Elastic Beanstalk
           eb deploy
