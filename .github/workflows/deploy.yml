@@ -3,7 +3,7 @@ name: Deploy to Elastic Beanstalk
 on:
   push:
     branches:
-      - main  
+      - main
 
 jobs:
   deploy:
@@ -11,53 +11,28 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v3
+      - name: Set up Python
+        uses: actions/setup-python@v2
         with:
-          dotnet-version: '7.x'  
+          python-version: '3.x'
 
-      - name: Restore dependencies
-        run: dotnet restore
-        working-directory: bookstore  # Ajuste para o diretório onde está sua aplicação .NET
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install awsebcli
 
-      - name: Build
-        run: dotnet build --configuration Release --no-restore
-        working-directory: bookstore  # Ajuste para o diretório onde está sua aplicação .NET
-
-      - name: Publish
-        run: dotnet publish --configuration Release --output ./publish
-        working-directory: bookstore  # Ajuste para o diretório onde está sua aplicação .NET
-
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v2
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1  # Substitua pela sua região
-
-      - name: Deploy to Elastic Beanstalk
+      - name: Initialize Elastic Beanstalk
+        run: |
+          eb init -p "IIS 10.0 running on 64bit Windows Server 2022" -r us-east-1 --interactive
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      - name: Deploy to Elastic Beanstalk
         run: |
-          echo "Instalando Elastic Beanstalk CLI"
-          pip install awsebcli
-          
-          echo "Mudando para o diretório bookstore/publish"
-          cd bookstore/publish
-          
-          echo "Inicializando EB CLI"
-          eb init -p "netcore" bbfDOTNET --region us-east-1  # Ajuste conforme necessário
-          
-          echo "Verificando se o ambiente existe"
-          if eb status meu-ambiente; then
-            echo "Ambiente já existe"
-          else
-            echo "Criando o ambiente"
-            eb create meu-ambiente --region us-east-1  # Certifique-se de que o nome do ambiente e a região estejam corretos
-          fi
-          
-          echo "Realizando o deploy"
           eb deploy
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
