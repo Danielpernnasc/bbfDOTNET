@@ -38,12 +38,12 @@ jobs:
       - name: Deploy to Elastic Beanstalk
         run: |
           # Check if environment exists
-          if eb describe NewApplicationBookstore_-env > /dev/null 2>&1; then
+          if eb describe NewApplicationbookstoreambiente > /dev/null 2>&1; then
             echo "Environment already exists. Deploying..."
             eb deploy
           else
             echo "Environment does not exist. Creating and deploying..."
-            eb create NewApplicationBookstore_-env --single
+            eb create NewApplicationbookstoreambiente --single
             eb deploy
           fi
         env:
