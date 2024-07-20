@@ -8,6 +8,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 60  # Define o timeout para o job
 
     steps:
       - name: Checkout code
@@ -44,6 +45,12 @@ jobs:
           else
             echo "Environment does not exist. Creating and deploying..."
             eb create NewApplicationbookstoreambiente --single
+            # Wait and check environment status
+            echo "Waiting for environment to be ready..."
+            while [ "$(eb status NewApplicationbookstoreambiente --verbose | grep 'Status:')" != "Status: Ready" ]; do
+              echo "Environment not ready yet. Waiting..."
+              sleep 60  # Wait for 60 seconds before checking again
+            done
             eb deploy
           fi
         env:
