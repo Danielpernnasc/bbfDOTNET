@@ -5,7 +5,6 @@ on:
     branches:
       - Bookstore_development
       - Bookstore_homolog
-      - TestDeploy
   workflow_dispatch:
 
 jobs:
@@ -47,9 +46,13 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: us-east-1
 
+    - name: Debug: Print GITHUB_REF
+      run: echo "GITHUB_REF is ${GITHUB_REF}"
+
     - name: Deploy to Elastic Beanstalk
       run: |
         BRANCH_NAME=$(echo ${GITHUB_REF} | sed 's|refs/heads/||')
+        echo "Extracted branch name: ${BRANCH_NAME}"
 
         if [ "${BRANCH_NAME}" == "Bookstore_development" ]; then
           ENV_NAME="DevelopmentBookstore"
@@ -63,9 +66,11 @@ jobs:
         # Initialize EB environment
         eb init Bookstore_DEVELOPMENT --platform ".NET 8 running on 64bit Amazon Linux 2023" --region us-east-1
 
-        # Create new application version
-        eb create $ENV_NAME --version "${BRANCH_NAME}-$(date +%Y%m%d%H%M%S)" --source $GITHUB_SHA.zip
+        # Create and upload the application version
+        APP_VERSION="${BRANCH_NAME}-$(date +%Y%m%d%H%M%S)"
+        zip -r $APP_VERSION.zip ./publish/*
+        eb create $APP_VERSION --source $APP_VERSION.zip
 
         # Deploy to the environment
         eb use $ENV_NAME
-        eb deploy $ENV_NAME --staged
+        eb deploy $ENV_NAME --version $APP_VERSION
