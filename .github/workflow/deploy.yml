@@ -1,0 +1,73 @@
+name: Deploy to Elastic Beanstalk
+
+on:
+  push:
+    branches:
+      - Bookstore_development
+      - Bookstore_homolog
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '8.0.x'
+
+    - name: Install dependencies
+      run: dotnet restore
+
+    - name: Publish .NET Core app
+      run: dotnet publish -c Release -o ./publish
+
+    - name: Zip published files
+      run: zip -r Bookstore.zip ./publish/*
+
+    - name: Install AWS CLI
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y awscli
+
+    - name: Install Elastic Beanstalk CLI
+      run: |
+        pip install --user awsebcli
+        export PATH=$PATH:~/.local/bin
+
+    - name: Configure AWS CLI
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1
+
+    - name: Debug: Print GITHUB_REF
+      run: echo "GITHUB_REF is ${GITHUB_REF}"
+
+    - name: Deploy to Elastic Beanstalk
+      run: |
+        BRANCH_NAME=$(echo ${GITHUB_REF} | sed 's|refs/heads/||')
+        echo "Extracted branch name: ${BRANCH_NAME}"
+
+        if [ "${BRANCH_NAME}" == "Bookstore_development" ]; then
+          ENV_NAME="DevelopmentBookstore"
+        elif [ "${BRANCH_NAME}" == "Bookstore_homolog" ]; then
+          ENV_NAME="HomologBookstore"
+        else
+          echo "Branch not recognized for deployment"
+          exit 1
+        fi
+
+        # Initialize EB environment
+        eb init Bookstore_DEVELOPMENT --platform ".NET 8 running on 64bit Amazon Linux 2023" --region us-east-1
+
+        # Use the environment
+        eb use $ENV_NAME
+
+        # Deploy the application
+        eb deploy --staged --label "${BRANCH_NAME}-$(date +%Y%m%d%H%M%S)"
