@@ -4,43 +4,63 @@ on:
   push:
     branches:
       - Bookstore_development
+      - Bookstore_homolog
+  workflow_dispatch:
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-      - name: Set up AWS CLI
-        uses: aws-actions/configure-aws-credentials@v2
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1
+    - name: Set up .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '8.0.x'
 
-      - name: Build .NET application
-        run: |
-          dotnet build
-          dotnet publish -c Release -o publish
+    - name: Install dependencies
+      run: dotnet restore
 
-      - name: Upload to S3
-        run: |
-          aws s3 cp publish/ s3://s3-dan-user/publish.zip --recursive
+    - name: Publish .NET Core app
+      run: dotnet publish -c Release -o ./publish
 
-      - name: Create new application version
-        id: create_version
-        run: |
-          aws elasticbeanstalk create-application-version \
-            --application-name Bookstore \
-            --version-label ${{ github.run_number }} \
-            --source-bundle S3Bucket=s3-dan-user,S3Key=publish.zip \
-            --region us-east-1
+    - name: Zip published files
+      run: zip -r Bookstore.zip ./publish/*
 
-      - name: Update Elastic Beanstalk environment
-        run: |
-          aws elasticbeanstalk update-environment \
-            --application-name Bookstore \
-            --environment-name DevelopmentBookstore \
-            --version-label ${{ github.run_number }} \
-            --region us-east-1
+    - name: Install AWS CLI and Elastic Beanstalk CLI
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y unzip
+        curl "https://d1uj6qtbmh3f4s.cloudfront.net/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+        unzip awscliv2.zip
+        sudo ./aws/install
+        sudo pip install awsebcli --upgrade
+
+    - name: Configure AWS CLI
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      run: |
+        aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+        aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
+        aws configure set default.region us-east-1
+
+    - name: Deploy to Elastic Beanstalk
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      run: |
+        if [ "${{ github.ref }}" == "refs/heads/Bookstore_development" ]; then
+          ENV_NAME="DevelopmentBookstore"
+        elif [ "${{ github.ref }}" == "refs/heads/Bookstore_homolog" ]; then
+          ENV_NAME="HomologBookstore"
+        else
+          echo "Branch not recognized for deployment"
+          exit 1
+        fi
+
+        eb init Bookstore_DEVELOPMENT --platform "dotnetcore" --region us-east-1
+        eb use $ENV_NAME
+        eb deploy --staged
