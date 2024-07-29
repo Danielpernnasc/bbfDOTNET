@@ -66,7 +66,8 @@ jobs:
         # Initialize EB environment
         eb init Bookstore_DEVELOPMENT --platform ".NET 8 running on 64bit Amazon Linux 2023" --region us-east-1
 
-        # Create an application version in Elastic Beanstalk
-        APP_VERSION="${BRANCH_NAME}-$(date +%Y%m%d%H%M%S)"
+        # Use the environment
         eb use $ENV_NAME
-        eb deploy --staged --label $APP_VERSION
+
+        # Deploy the application
+        eb deploy --staged --label "${BRANCH_NAME}-$(date +%Y%m%d%H%M%S)"
