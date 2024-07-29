@@ -47,6 +47,18 @@ jobs:
         aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
         aws configure set default.region us-east-1
 
+    - name: Create Application Version
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      run: |
+        aws s3 cp Bookstore.zip s3://your-s3-bucket-name/Bookstore.zip
+        aws elasticbeanstalk create-application-version \
+          --application-name Bookstore \
+          --version-label ${{ github.run_id }} \
+          --source-bundle S3Bucket=your-s3-bucket-name,S3Key=Bookstore.zip \
+          --region us-east-1
+
     - name: Deploy to Elastic Beanstalk
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -61,6 +73,8 @@ jobs:
           exit 1
         fi
 
-        eb init Bookstore_DEVELOPMENT --platform "dotnetcore" --region us-east-1
-        eb use $ENV_NAME
-        eb deploy --staged
+        aws elasticbeanstalk update-environment \
+          --application-name Bookstore \
+          --environment-name $ENV_NAME \
+          --version-label ${{ github.run_id }} \
+          --region us-east-1
