@@ -44,7 +44,17 @@ jobs:
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
     - name: Wait for Application Version to be Processed
-
+      run: |
+        while true; do
+          status=$(aws elasticbeanstalk describe-application-versions --application-name Bookstore --version-label ${{ github.run_number }} --region us-east-1 --query 'ApplicationVersions[0].Status' --output text)
+          if [ "$status" = "READY" ]; then
+            echo "Application version is ready."
+            break
+          else
+            echo "Waiting for application version to be processed..."
+            sleep 30
+          fi
+        done
 
     - name: Deploy to Elastic Beanstalk - Development
       run: |
