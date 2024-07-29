@@ -58,10 +58,7 @@ jobs:
           ENV_NAME="DevelopmentBookstore"
         elif [ "${BRANCH_NAME}" == "Bookstore_homolog" ]; then
           ENV_NAME="HomologBookstore"
-        else
-          echo "Branch not recognized for deployment"
-          exit 1
-        fi
+      
 
         # Initialize EB environment
         eb init Bookstore_DEVELOPMENT --platform ".NET 8 running on 64bit Amazon Linux 2023" --region us-east-1
