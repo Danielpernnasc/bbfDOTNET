@@ -3,8 +3,9 @@ name: Deploy to Elastic Beanstalk
 on:
   push:
     branches:
-      - Bookstore_development
-      - Bookstore_homolog
+      - bookstore_development
+      - bookstore_homolog
+      - TestDeploy  # Adicione isso se quiser testar com o branch testDeploy
 
 jobs:
   deploy:
@@ -17,36 +18,20 @@ jobs:
     - name: Set up .NET
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: '6.0.x'
+        dotnet-version: '8.0.x'
 
-    - name: Restore dependencies
+    - name: Install dependencies
       run: dotnet restore
 
-    - name: Build
-      run: dotnet build --configuration Release --no-restore
-
-    - name: Publish
+    - name: Publish .NET Core app
       run: dotnet publish -c Release -o ./publish
 
-    - name: Deploy to S3
-      run: aws s3 cp ./publish s3://my-bucket/${{ github.ref_name }}/ --recursive
+    - name: Zip published files
+      run: zip -r Bookstore.zip ./publish/*
 
-    - name: Create Elastic Beanstalk Application Version
-      run: |
-        VERSION_LABEL=$(date +%Y%m%d%H%M%S)
-        ENV_NAME=""
-        APP_NAME=""
-        
-        if [ "${{ github.ref }}" == "refs/heads/develop" ]; then
-          ENV_NAME="DevelopmentBookstore"
-          APP_NAME="Boostore"
-        elif [ "${{ github.ref }}" == "refs/heads/homolog" ]; then
-          ENV_NAME="HomologBookstore"
-          APP_NAME="Bookstore"
-        fi
-        
-        aws elasticbeanstalk create-application-version --application-name $APP_NAME --version-label $VERSION_LABEL --source-bundle S3Bucket="my-bucket",S3Key="${{ github.ref_name }}/publish.zip"
-        aws elasticbeanstalk update-environment --environment-name $ENV_NAME --version-label $VERSION_LABEL
+    - name: Deploy to Elastic Beanstalk
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      run: |
+        if [ "${{ github.ref }}" ==
