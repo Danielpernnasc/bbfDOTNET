@@ -1,0 +1,48 @@
+name: Deploy to Elastic Beanstalk
+
+on:
+  push:
+    branches:
+      - Bookstore_development
+      - Bookstore_homolog
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '8.0.x'
+
+    - name: Install dependencies
+      run: dotnet restore
+
+    - name: Publish .NET Core app
+      run: dotnet publish -c Release -o ./publish
+
+    - name: Zip published files
+      run: zip -r Bookstore.zip ./publish/*
+
+    - name: Deploy to Elastic Beanstalk
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      run: |
+        if [ "${{ github.ref }}" == "refs/heads/Bookstore_development" ]; then
+          ENV_NAME="AmbienteDesenvolvimentoAWS-env"
+        elif [ "${{ github.ref }}" == "refs/heads/Bookstore_homolog" ]; then
+          ENV_NAME="AmbienteHomologacaoAWS-env"
+        else
+          echo "Branch not recognized for deployment"
+          exit 1
+        fi
+
+        eb init Bookstore_DEVELOPMENT --platform "netcore" --region us-east-1
+        eb use $ENV_NAME
+        eb deploy $ENV_NAME --staged
