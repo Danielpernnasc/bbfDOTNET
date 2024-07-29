@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - Bookstore_development
-      - Bookstore_homolog
   workflow_dispatch:
 
 jobs:
