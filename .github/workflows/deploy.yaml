@@ -28,6 +28,16 @@ jobs:
     - name: Zip published files
       run: zip -r Bookstore.zip ./publish/*
 
+    - name: Install AWS CLI
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y awscli
+
+    - name: Install Elastic Beanstalk CLI
+      run: |
+        pip install --user awsebcli
+        export PATH=$PATH:~/.local/bin
+
     - name: Configure AWS CLI
       uses: aws-actions/configure-aws-credentials@v2
       with:
