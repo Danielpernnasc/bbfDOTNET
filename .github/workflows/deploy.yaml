@@ -58,16 +58,22 @@ jobs:
           ENV_NAME="DevelopmentBookstore"
         elif [ "${BRANCH_NAME}" == "Bookstore_homolog" ]; then
           ENV_NAME="HomologBookstore"
-      
+        else
+          echo "Branch not recognized for deployment"
+          exit 1
+        fi
 
         # Initialize EB environment
         eb init Bookstore_DEVELOPMENT --platform ".NET 8 running on 64bit Amazon Linux 2023" --region us-east-1
 
-        # Create and upload the application version
+        # Upload the application version
         APP_VERSION="${BRANCH_NAME}-$(date +%Y%m%d%H%M%S)"
         zip -r $APP_VERSION.zip ./publish/*
-        eb create $APP_VERSION --source $APP_VERSION.zip
+        aws s3 cp $APP_VERSION.zip s3://your-bucket/$APP_VERSION.zip
 
-        # Deploy to the environment
+        # Create an application version in Elastic Beanstalk
+        aws elasticbeanstalk create-application-version --application-name Bookstore_DEVELOPMENT --version-label $APP_VERSION --source-bundle S3Bucket="your-bucket",S3Key="$APP_VERSION.zip"
+
+        # Deploy the new version
         eb use $ENV_NAME
         eb deploy $ENV_NAME --version $APP_VERSION
