@@ -3,9 +3,9 @@ name: Deploy to Elastic Beanstalk
 on:
   push:
     branches:
-      - bookstore_development
-      - bookstore_homolog
-      - TestDeploy  # Adicione isso se quiser testar com o branch testDeploy
+      - Bookstore_development
+      - Bookstore_homolog
+  workflow_dispatch:
 
 jobs:
   deploy:
@@ -34,4 +34,15 @@ jobs:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       run: |
-        if [ "${{ github.ref }}" ==
+        if [ "${{ github.ref }}" == "refs/heads/Bookstore_development" ]; then
+          ENV_NAME="AmbienteDesenvolvimentoAWS-env"
+        elif [ "${{ github.ref }}" == "refs/heads/Bookstore_homolog" ]; then
+          ENV_NAME="AmbienteHomologacaoAWS-env"
+        else
+          echo "Branch not recognized for deployment"
+          exit 1
+        fi
+
+        eb init Bookstore_DEVELOPMENT --platform "netcore" --region us-east-1
+        eb use $ENV_NAME
+        eb deploy $ENV_NAME --staged
