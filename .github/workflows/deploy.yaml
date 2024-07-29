@@ -31,14 +31,14 @@ jobs:
       run: zip -r publish.zip ./publish
 
     - name: Upload to S3
-      run: aws s3 cp publish.zip s3://elasticbeanstalk-us-east-1-308476907918/publish.zip --region us-east-1
+      run: aws s3 cp publish.zip s3://s3-dan-user/publish.zip --region us-east-1
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
     - name: Create Application Version
       run: |
-        aws elasticbeanstalk create-application-version --application-name Bookstore --version-label ${{ github.run_number }} --source-bundle S3Bucket=elasticbeanstalk-us-east-1-308476907918,S3Key=publish.zip --region us-east-1
+        aws elasticbeanstalk create-application-version --application-name Bookstore --version-label ${{ github.run_number }} --source-bundle S3Bucket=s3-dan-user,S3Key=publish.zip --region us-east-1
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
