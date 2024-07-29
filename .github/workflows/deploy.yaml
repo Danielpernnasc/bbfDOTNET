@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - Bookstore_development
+      - Bookstore_homolog
 
 jobs:
   deploy:
@@ -36,9 +37,16 @@ jobs:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
-    - name: Deploy to Elastic Beanstalk
+    - name: Create Application Version
+      id: create-version
       run: |
         aws elasticbeanstalk create-application-version --application-name Bookstore --version-label ${{ github.run_number }} --source-bundle S3Bucket=s3-dan-user,S3Key=publish.zip --region us-east-1
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+    - name: Deploy to Elastic Beanstalk
+      run: |
         aws elasticbeanstalk update-environment --application-name Bookstore --environment-name DevelopmentBookstore --version-label ${{ github.run_number }} --region us-east-1
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
