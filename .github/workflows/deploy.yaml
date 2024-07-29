@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - TestDeploy
-     
   workflow_dispatch:
 
 jobs:
@@ -34,15 +33,17 @@ jobs:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       run: |
-        if [ "${{ github.ref }}" == "refs/heads/Bookstore_development" ]; then
+        # Determine environment based on branch
+        if [ "${GITHUB_REF}" == "refs/heads/TestDeploy" ]; then
           ENV_NAME="DevelopmentBookstore"
-        elif [ "${{ github.ref }}" == "refs/heads/Bookstore_homolog" ]; then
+        elif [ "${GITHUB_REF}" == "refs/heads/Bookstore_homolog" ]; then
           ENV_NAME="HomologBookstore"
         else
           echo "Branch not recognized for deployment"
           exit 1
         fi
 
+        # Deploy to Elastic Beanstalk
         eb init Bookstore_DEVELOPMENT --platform "netcore" --region us-east-1
         eb use $ENV_NAME
         eb deploy $ENV_NAME --staged
