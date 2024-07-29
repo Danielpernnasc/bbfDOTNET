@@ -3,7 +3,7 @@ name: Deploy to Elastic Beanstalk
 on:
   push:
     branches:
-      - TestDeploy
+      - Bookstore_development
       - Bookstore_homolog
   workflow_dispatch:
 
@@ -50,7 +50,7 @@ jobs:
       run: |
         BRANCH_NAME=$(echo ${GITHUB_REF} | sed 's|refs/heads/||')
 
-        if [ "${BRANCH_NAME}" == "TestDeploy" ]; then
+        if [ "${BRANCH_NAME}" == "Bookstore_development" ]; then
           ENV_NAME="DevelopmentBookstore"
         elif [ "${BRANCH_NAME}" == "Bookstore_homolog" ]; then
           ENV_NAME="HomologBookstore"
