@@ -1,4 +1,3 @@
-﻿
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
@@ -8,7 +7,6 @@ namespace bookstore
     public class Startup
     {
         private readonly IConfiguration _configuration;
-
         public Startup(IConfiguration configuration)
         {
             _configuration = configuration;
