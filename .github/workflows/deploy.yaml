@@ -3,41 +3,43 @@ name: Deploy to Elastic Beanstalk
 on:
   push:
     branches:
-      - TestDeploy  # ou a branch que você quer usar para deploy
+      - TestDeploy
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Check out code from GitHub
+    - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Set up .NET Core
-      uses: actions/setup-dotnet@v2
+    - name: Set up .NET
+      uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: '8.0.x' # Versão do .NET que você está usando
+        dotnet-version: '8.0.x'
 
-    - name: Install dependencies
+    - name: Restore dependencies
       run: dotnet restore
 
-    - name: Build the project
+    - name: Build
+      run: dotnet build --configuration Release
+
+    - name: Publish
       run: dotnet publish -c Release -o ./publish
 
-    - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ${{ secrets.AWS_REGION }}
-
-    - name: Zip the published application
-      run: zip -r deploy.zip ./publish
+    - name: Zip the publish directory
+      run: zip -r publish.zip ./publish
 
     - name: Upload to S3
-      run: aws s3 cp deploy.zip s3://s3-dan-user/deploy.zip --region ${{ secrets.AWS_REGION }}
+      run: aws s3 cp publish.zip s3://elasticbeanstalk-us-east-1-308476907918/publish.zip --region us-east-1
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
     - name: Deploy to Elastic Beanstalk
       run: |
-        aws elasticbeanstalk create-application-version --application-name ${{ secrets.EB_APP_NAME }} --version-label $GITHUB_SHA --source-bundle S3Bucket=s3-dan-user,S3Key=deploy.zip --region ${{ secrets.AWS_REGION }}
-        aws elasticbeanstalk update-environment --environment-name ${{ secrets.EB_ENV_NAME }} --version-label $GITHUB_SHA --region ${{ secrets.AWS_REGION }}
+        aws elasticbeanstalk create-application-version --application-name PublicBookstore --version-label ${{ github.run_number }} --source-bundle S3Bucket=elasticbeanstalk-us-east-1-308476907918,S3Key=publish.zip --region us-east-1
+        aws elasticbeanstalk update-environment --application-name PublicBookstore --environment-name PublicBookstore-env --version-label ${{ github.run_number }} --region us-east-1
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
