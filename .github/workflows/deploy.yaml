@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - TestDeploy
+      - Bookstore_homolog
   workflow_dispatch:
 
 jobs:
@@ -47,9 +48,11 @@ jobs:
 
     - name: Deploy to Elastic Beanstalk
       run: |
-        if [ "${GITHUB_REF}" == "refs/heads/Bookstore_development" ]; then
+        BRANCH_NAME=$(echo ${GITHUB_REF} | sed 's|refs/heads/||')
+
+        if [ "${BRANCH_NAME}" == "TestDeploy" ]; then
           ENV_NAME="DevelopmentBookstore"
-        elif [ "${GITHUB_REF}" == "refs/heads/Bookstore_homolog" ]; then
+        elif [ "${BRANCH_NAME}" == "Bookstore_homolog" ]; then
           ENV_NAME="HomologBookstore"
         else
           echo "Branch not recognized for deployment"
