@@ -3,8 +3,9 @@ name: Deploy to Elastic Beanstalk
 on:
   push:
     branches:
-     
-      -TestDeploy
+      - Bookstore_development
+      - Bookstore_homolog
+  workflow_dispatch:
 
 jobs:
   deploy:
