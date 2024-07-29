@@ -59,6 +59,12 @@ jobs:
           exit 1
         fi
 
+        # Initialize EB environment
         eb init Bookstore_DEVELOPMENT --platform ".NET 8 running on 64bit Amazon Linux 2023" --region us-east-1
+
+        # Create new application version
+        eb create $ENV_NAME --version "${BRANCH_NAME}-$(date +%Y%m%d%H%M%S)" --source $GITHUB_SHA.zip
+
+        # Deploy to the environment
         eb use $ENV_NAME
         eb deploy $ENV_NAME --staged
