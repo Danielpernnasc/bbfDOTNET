@@ -19,6 +19,13 @@ jobs:
       with:
         dotnet-version: '8.0.x'
 
+    - name: Install AWS Elastic Beanstalk CLI
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y python3-pip
+        pip3 install --upgrade --user awsebcli
+        export PATH=$PATH:$HOME/.local/bin
+
     - name: Install dependencies
       run: dotnet restore
 
@@ -43,7 +50,7 @@ jobs:
           exit 1
         fi
 
-        # Deploy to Elastic Beanstalk
+        # Configure Elastic Beanstalk CLI
         eb init Bookstore_DEVELOPMENT --platform "netcore" --region us-east-1
         eb use $ENV_NAME
         eb deploy $ENV_NAME --staged
