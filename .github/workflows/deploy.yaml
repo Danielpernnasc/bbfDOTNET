@@ -36,7 +36,7 @@ jobs:
     - name: Create application version
       run: |
         aws elasticbeanstalk create-application-version \
-          --application-name Bookstore_DEVELOPMENT \
+          --application-name Bookstore \
           --version-label ${{ github.sha }} \
           --source-bundle S3Bucket="s3-dan-user",S3Key="Publish.zip"
 
