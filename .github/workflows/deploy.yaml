@@ -3,7 +3,6 @@ name: Deploy to Elastic Beanstalk
 on:
   push:
     branches:
-      - Bookstore_development
       - Bookstore_homolog
 
 jobs:
@@ -27,18 +26,18 @@ jobs:
 
     - name: Package application
       run: |
-        zip -r Publish.zip .
+        zip -r Bookstore.zip .
 
     - name: Upload to S3
       run: |
-        aws s3 cp Publish.zip s3://s3-dan-user/Publish.zip
+        aws s3 cp Bookstore.zip s3://s3-dan-user/Bookstore.zip
 
     - name: Create application version
       run: |
         aws elasticbeanstalk create-application-version \
           --application-name Bookstore \
           --version-label ${{ github.sha }} \
-          --source-bundle S3Bucket="s3-dan-user",S3Key="Publish.zip"
+          --source-bundle S3Bucket="s3-dan-user",S3Key="Bookstore.zip"
 
     - name: Update Elastic Beanstalk environment
       run: |
