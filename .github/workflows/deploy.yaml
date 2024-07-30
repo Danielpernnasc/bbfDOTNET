@@ -29,12 +29,24 @@ jobs:
       - name: Check AWS CLI version
         run: aws --version
 
+      - name: Check AWS CLI configuration
+        run: |
+          aws configure list
+          aws sts get-caller-identity
+
       - name: Verify S3 Bucket Access
-        run: aws s3 ls s3://s3-dan-user/
+       run: aws s3 ls s3://s3-dan-user/ --debug
 
       - name: Upload to S3
         run: |
           aws s3 cp publish.zip s3://s3-dan-user/publish.zip --debug
+
+      - name: Set up AWS CLI
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
 
       - name: Create new application version
         id: create_version
