@@ -4,87 +4,49 @@ on:
   push:
     branches:
       - Bookstore_development
+      - Bookstore_homolog
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-      - name: Set up .NET SDK
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: '8.x'
+    - name: Set up AWS CLI
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1
 
-      - name: Build .NET application
-        run: |
-          dotnet build
-          dotnet publish -c Release -o publish
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y zip
 
-      - name: Zip the publish directory
-        run: |
-          zip -r publish.zip publish
+    - name: Package application
+      run: |
+        zip -r Bookstore.zip .
 
-      - name: Set up AWS CLI
-        uses: aws-actions/configure-aws-credentials@v2
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1
+    - name: Upload to S3
+      run: |
+        aws s3 cp Bookstore.zip s3://your-s3-bucket/Bookstore.zip
 
-      - name: Check AWS CLI version
-        run: aws --version
+    - name: Create application version
+      run: |
+        aws elasticbeanstalk create-application-version \
+          --application-name Bookstore_DEVELOPMENT \
+          --version-label ${{ github.sha }} \
+          --source-bundle S3Bucket="your-s3-bucket",S3Key="Bookstore.zip"
 
-      - name: Check AWS CLI configuration
-        run: |
-          aws configure list
-          aws sts get-caller-identity
+    - name: Update Elastic Beanstalk environment
+      run: |
+        aws elasticbeanstalk update-environment \
+          --environment-name AmbienteDesenvolvimentoAWS-env \
+          --version-label ${{ github.sha }}
 
-      - name: Verify S3 Bucket Access
-        run: aws s3 ls s3://s3-dan-user/ --debug
-
-      - name: Upload to S3
-        run: |
-          aws s3 cp publish.zip s3://s3-dan-user/publish.zip --debug
-
-      - name: Create new application version
-        id: create_version
-        run: |
-          VERSION_LABEL="${{ github.run_number }}"
-          aws elasticbeanstalk create-application-version \
-            --application-name Bookstore \
-            --version-label $VERSION_LABEL \
-            --source-bundle S3Bucket=s3-dan-user,S3Key=publish.zip \
-            --region us-east-1 || true
-          echo "::set-output name=version_label::$VERSION_LABEL"
-
-      - name: Update Elastic Beanstalk environment (Homolog)
-        run: |
-          aws elasticbeanstalk update-environment \
-            --application-name Bookstore \
-            --environment-name HomologBookstore \
-            --version-label ${{ steps.create_version.outputs.version_label }} \
-            --region us-east-1
-
-      - name: Update Elastic Beanstalk environment (Development)
-        run: |
-          aws elasticbeanstalk update-environment \
-            --application-name Bookstore \
-            --environment-name DevelopmentBookstore \
-            --version-label ${{ steps.create_version.outputs.version_label }} \
-            --region us-east-1
-
-      - name: Check Elastic Beanstalk environment status (Homolog)
-        run: |
-          aws elasticbeanstalk describe-environments \
-            --application-name Bookstore \
-            --environment-names HomologBookstore \
-            --region us-east-1
-
-      - name: Check Elastic Beanstalk environment status (Development)
-        run: |
-          aws elasticbeanstalk describe-environments \
-            --application-name Bookstore \
-            --environment-names DevelopmentBookstore \
-            --region us-east-1
+    - name: Confirm update
+      run: |
+        aws elasticbeanstalk describe-environments \
+          --environment-names AmbienteDesenvolvimentoAWS-env
