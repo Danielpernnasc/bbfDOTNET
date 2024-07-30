@@ -3,7 +3,7 @@ name: Deploy to Elastic Beanstalk
 on:
   push:
     branches:
-      - Bookstore_development  # Ou o nome da branch que você está usando para deploy
+      - Bookstore_development
 
 jobs:
   deploy:
@@ -15,7 +15,7 @@ jobs:
       - name: Set up .NET SDK
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: '8.x'  # Versão do .NET SDK que você está usando
+          dotnet-version: '8.x'
 
       - name: Build .NET application
         run: |
@@ -26,9 +26,15 @@ jobs:
         run: |
           zip -r publish.zip publish
 
+      - name: Check AWS CLI version
+        run: aws --version
+
+      - name: Verify S3 Bucket Access
+        run: aws s3 ls s3://s3-dan-user/
+
       - name: Upload to S3
         run: |
-          aws s3 cp publish.zip s3://s3-dan-user/publish.zip
+          aws s3 cp publish.zip s3://s3-dan-user/publish.zip --debug
 
       - name: Create new application version
         id: create_version

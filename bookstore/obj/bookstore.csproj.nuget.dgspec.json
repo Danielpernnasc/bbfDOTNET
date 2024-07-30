@@ -1,25 +1,28 @@
 {
   "format": 1,
   "restore": {
-    "/mnt/e/Users/DANIEL/Desktop/Cursodotnet/bbfDOTNET/bookstore/bookstore.csproj": {}
+    "E:\\Users\\DANIEL\\Desktop\\Cursodotnet\\bbfDOTNET\\bookstore\\bookstore.csproj": {}
   },
   "projects": {
-    "/mnt/e/Users/DANIEL/Desktop/Cursodotnet/bbfDOTNET/bookstore/bookstore.csproj": {
+    "E:\\Users\\DANIEL\\Desktop\\Cursodotnet\\bbfDOTNET\\bookstore\\bookstore.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/mnt/e/Users/DANIEL/Desktop/Cursodotnet/bbfDOTNET/bookstore/bookstore.csproj",
+        "projectUniqueName": "E:\\Users\\DANIEL\\Desktop\\Cursodotnet\\bbfDOTNET\\bookstore\\bookstore.csproj",
         "projectName": "bookstore",
-        "projectPath": "/mnt/e/Users/DANIEL/Desktop/Cursodotnet/bbfDOTNET/bookstore/bookstore.csproj",
-        "packagesPath": "/home/dpericles/.nuget/packages/",
-        "outputPath": "/mnt/e/Users/DANIEL/Desktop/Cursodotnet/bbfDOTNET/bookstore/obj/",
+        "projectPath": "E:\\Users\\DANIEL\\Desktop\\Cursodotnet\\bbfDOTNET\\bookstore\\bookstore.csproj",
+        "packagesPath": "C:\\Users\\Daniel\\.nuget\\packages\\",
+        "outputPath": "E:\\Users\\DANIEL\\Desktop\\Cursodotnet\\bbfDOTNET\\bookstore\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/dpericles/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\Daniel\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -32,6 +35,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -86,7 +94,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.107/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
