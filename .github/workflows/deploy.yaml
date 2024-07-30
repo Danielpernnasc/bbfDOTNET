@@ -3,7 +3,7 @@ name: Deploy to Elastic Beanstalk
 on:
   push:
     branches:
-      - Bookstore_homolog
+      - Bookstore_development
 
 jobs:
   deploy:
