@@ -26,18 +26,18 @@ jobs:
 
     - name: Package application
       run: |
-        zip -r Bookstore.zip .
+        zip -r publish.zip .
 
     - name: Upload to S3
       run: |
-        aws s3 cp Bookstore.zip s3://s3-dan-user/Bookstore.zip
+        aws s3 cp publish.zip s3://s3-dan-user/publish.zip
 
     - name: Create application version
       run: |
         aws elasticbeanstalk create-application-version \
           --application-name Bookstore \
           --version-label ${{ github.sha }} \
-          --source-bundle S3Bucket="s3-dan-user",S3Key="Bookstore.zip"
+          --source-bundle S3Bucket="s3-dan-user",S3Key="publish.zip"
 
     - name: Update Elastic Beanstalk environment
       run: |
