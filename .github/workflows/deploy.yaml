@@ -3,7 +3,7 @@ name: Deploy to Elastic Beanstalk
 on:
   push:
     branches:
-      - Bookstore_development
+      - Bookstore_homolog
 
 jobs:
   deploy:
@@ -51,16 +51,40 @@ jobs:
       - name: Create new application version
         id: create_version
         run: |
+          VERSION_LABEL="${{ github.run_number }}"
           aws elasticbeanstalk create-application-version \
             --application-name Bookstore \
-            --version-label ${{ github.run_number }} \
+            --version-label $VERSION_LABEL \
             --source-bundle S3Bucket=s3-dan-user,S3Key=publish.zip \
+            --region us-east-1 || true
+          echo "::set-output name=version_label::$VERSION_LABEL"
+
+      - name: Update Elastic Beanstalk environment (Homolog)
+        run: |
+          aws elasticbeanstalk update-environment \
+            --application-name Bookstore \
+            --environment-name HomologBookstore \
+            --version-label ${{ steps.create_version.outputs.version_label }} \
             --region us-east-1
 
-      - name: Update Elastic Beanstalk environment
+      - name: Update Elastic Beanstalk environment (Development)
         run: |
           aws elasticbeanstalk update-environment \
             --application-name Bookstore \
             --environment-name DevelopmentBookstore \
-            --version-label ${{ github.run_number }} \
+            --version-label ${{ steps.create_version.outputs.version_label }} \
+            --region us-east-1
+
+      - name: Check Elastic Beanstalk environment status (Homolog)
+        run: |
+          aws elasticbeanstalk describe-environments \
+            --application-name Bookstore \
+            --environment-names HomologBookstore \
+            --region us-east-1
+
+      - name: Check Elastic Beanstalk environment status (Development)
+        run: |
+          aws elasticbeanstalk describe-environments \
+            --application-name Bookstore \
+            --environment-names DevelopmentBookstore \
             --region us-east-1
